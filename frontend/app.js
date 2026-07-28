@@ -64,6 +64,7 @@ const APP = {
 
     switch (name) {
       case 'dashboard': this.renderDashboard(); break;
+      case 'schedule': this.renderSchedule(); break;
       case 'tools': this.renderTools(); break;
       case 'magnet': this.renderMagnet(); break;
     }
@@ -76,6 +77,157 @@ const APP = {
     el.textContent = message;
     document.body.appendChild(el);
     setTimeout(() => { el.style.opacity = '0'; el.style.transition = 'opacity .3s'; setTimeout(() => el.remove(), 300); }, 3000);
+  },
+
+  // ── SCHEDULE ──
+  SCHEDULE_SLOTS: [
+    { time: '00:00', name: 'Bitcoin Philosophy', type: 'reel+carousel', script: 'daily_bitcoin_philosophy_post.py', emoji: '🧠', desc: 'Deep reflections on money, value, and freedom' },
+    { time: '03:00', name: 'BTC Bitcoin Bulletin', type: 'reel+carousel', script: 'daily_bitcoin_post.py', emoji: '₿', desc: 'Price, facts, and Austrian economics insights' },
+    { time: '08:00', name: 'History of Sound Money', type: 'reel+carousel', script: 'daily_history_post.py', emoji: '🏛️', desc: 'From Menger to Bitcoin — the fight for sound money' },
+    { time: '08:00', name: 'News Briefing', type: 'text', script: 'cron (LLM)', emoji: '📰', desc: '6-section news: Bitcoin, Geopolitics, Malaysia, Tech, Wildcard, Weird' },
+    { time: '12:00', name: 'Austrian Econ & AI Motivation', type: 'reel+carousel', script: 'daily_ig_post.py', emoji: '⚡', desc: 'Austrian economics meets AI-era motivation' },
+    { time: '12:00', name: 'News Briefing', type: 'text', script: 'cron (LLM)', emoji: '📰', desc: '6-section news briefing (repeat)' },
+    { time: '15:00', name: 'Engagement Post', type: 'single-image', script: 'engagement_post.py', emoji: '💬', desc: 'Hot-take single image for engagement' },
+    { time: '18:00', name: 'The Daily Brief', type: 'reel+carousel', script: 'daily_brief_post.py', emoji: '📋', desc: 'Visual news digest — top stories of the day' },
+    { time: '20:00', name: 'News Briefing', type: 'text', script: 'cron (LLM)', emoji: '📰', desc: 'Evening news briefing' },
+    { time: '21:00', name: 'Bitcoin Curiosities', type: 'reel+carousel', script: 'daily_quirky_post.py', emoji: '🔮', desc: 'Weird & wonderful Bitcoin and history facts' },
+    { time: '11:00 Sat', name: 'Weekly Affiliate Post', type: 'single-image', script: 'affiliate_post.py', emoji: '🤝', desc: 'HATA + Luno affiliate links push' },
+  ],
+
+  SCHEDULE_CRON_MAP: {
+    'Bitcoin Philosophy': 'cb20234ce271',
+    'BTC Bitcoin Bulletin': 'b9934a4874ea',
+    'History of Sound Money': '84d748414265',
+    'News Briefing': '176823e36a57',
+    'Austrian Econ & AI Motivation': 'cc805909a564',
+    'Engagement Post': '15ffac5a3112',
+    'The Daily Brief': 'fa04bd4f3d7c',
+    'Bitcoin Curiosities': '5125e86c6a83',
+    'Weekly Affiliate Post': '89c37687603c',
+  },
+
+  async renderSchedule() {
+    const el = document.getElementById('schedule-content');
+    el.innerHTML = '<div class="loading-state"><span class="spinner"></span>Loading schedule...</div>';
+
+    // Try fetching live cron status from backend
+    let cronStatus = {};
+    try {
+      const jobs = await this.api('/api/cron');
+      if (jobs && jobs.jobs) {
+        for (const j of jobs.jobs) {
+          cronStatus[j.name] = j;
+        }
+      }
+    } catch (e) {
+      // No API — render static schedule
+    }
+
+    const now = new Date();
+    const currentHour = now.getHours();
+    const currentMin = now.getMinutes();
+    const currentTimeMins = currentHour * 60 + currentMin;
+
+    // Group by time
+    const timeline = [];
+    const seen = new Set();
+    for (const slot of this.SCHEDULE_SLOTS) {
+      const key = slot.time + slot.name;
+      let count = 1;
+      let baseKey = key;
+      while (seen.has(baseKey)) { count++; baseKey = key + count; }
+      seen.add(baseKey);
+
+      const [h, m] = slot.time.split(/[: ]/);
+      const slotMins = parseInt(h) * 60 + (parseInt(m) || 0);
+      const isPast = slotMins < currentTimeMins;
+      const isNow = Math.abs(slotMins - currentTimeMins) < 60;
+
+      timeline.push({ ...slot, isPast, isNow, slotMins });
+    }
+    timeline.sort((a, b) => a.slotMins - b.slotMins);
+
+    el.innerHTML = `
+      <div style="display:flex;gap:16px;margin-bottom:20px;flex-wrap:wrap">
+        <div class="card" style="flex:1;min-width:200px">
+          <h3>Daily Posts</h3>
+          <div class="big-number">${this.SCHEDULE_SLOTS.filter(s => s.type !== 'text').length}</div>
+          <div style="font-size:13px;color:var(--text2)">visual posts per day</div>
+        </div>
+        <div class="card" style="flex:1;min-width:200px">
+          <h3>Text Briefings</h3>
+          <div class="big-number">${this.SCHEDULE_SLOTS.filter(s => s.type === 'text').length}</div>
+          <div style="font-size:13px;color:var(--text2)">per day (8AM, 12PM, 8PM)</div>
+        </div>
+        <div class="card" style="flex:1;min-width:200px">
+          <h3>Weekly</h3>
+          <div class="big-number">1</div>
+          <div style="font-size:13px;color:var(--text2)">affiliate post (Saturday 11AM)</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Daily Timeline ${now.toLocaleDateString()}</h3>
+        <div style="margin-top:12px">
+          ${timeline.map(slot => {
+            const cronName = this.SCHEDULE_CRON_MAP[slot.name];
+            const job = cronStatus[cronName];
+            const statusIcon = job ? (job.last_status === 'ok' ? '✅' : '❌') : '';
+            const statusClass = job ? (job.last_status === 'ok' ? 'success' : 'error') : '';
+            return `
+              <div class="schedule-slot ${slot.isNow ? 'now' : ''} ${slot.isPast ? 'past' : 'future'}" style="
+                display:flex;align-items:center;gap:12px;padding:12px 16px;
+                border-left:3px solid ${slot.isNow ? 'var(--accent)' : slot.isPast ? 'var(--border)' : 'var(--surface3)'};
+                background: ${slot.isNow ? 'rgba(247,147,26,.08)' : 'transparent'};
+                border-bottom:1px solid var(--border);
+                opacity: ${slot.isPast ? '.6' : '1'};
+              ">
+                <div style="min-width:80px;font-weight:700;font-size:15px;color:${slot.isNow ? 'var(--accent)' : 'var(--text)'}">
+                  ${slot.isNow ? '▶' : ''} ${slot.time}
+                </div>
+                <div style="font-size:22px;min-width:30px">${slot.emoji}</div>
+                <div style="flex:1">
+                  <div style="font-weight:600;font-size:14px">${slot.name}</div>
+                  <div style="font-size:12px;color:var(--text2)">${slot.desc}</div>
+                  <div style="font-size:11px;color:var(--text2);margin-top:2px">
+                    <code style="background:var(--surface2);padding:1px 6px;border-radius:4px">${slot.script}</code>
+                    <span class="category-tag" style="margin-left:6px;background:${slot.type === 'text' ? 'rgba(99,102,241,.15)' : slot.type === 'single-image' ? 'rgba(34,197,94,.15)' : 'rgba(247,147,26,.15)'};color:${slot.type === 'text' ? '#818cf8' : slot.type === 'single-image' ? '#22c55e' : '#F7931A'}">${slot.type}</span>
+                  </div>
+                </div>
+                ${job ? `
+                  <div style="text-align:right;font-size:12px">
+                    <div class="status-badge ${statusClass}" style="margin-bottom:4px">${statusIcon} ${job.last_status || 'never run'}</div>
+                    <div style="color:var(--text2)">next: ${job.next_run_at ? new Date(job.next_run_at).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) : '-'}</div>
+                  </div>
+                ` : `
+                  <div style="text-align:right;font-size:11px;color:var(--text2)">
+                    <span class="status-badge" style="background:var(--surface3);color:var(--text2)">⏳ cron</span>
+                  </div>
+                `}
+              </div>
+            `;
+          }).join('')}
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Platforms</h3>
+        <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:8px">
+          <div style="display:flex;align-items:center;gap:8px;padding:8px 16px;background:var(--surface2);border-radius:var(--radius-sm)">
+            <span style="font-size:20px">📸</span>
+            <div><div style="font-weight:600;font-size:13px">Instagram</div><div style="font-size:11px;color:var(--text2)">All visual posts + reels</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:8px 16px;background:var(--surface2);border-radius:var(--radius-sm)">
+            <span style="font-size:20px">📘</span>
+            <div><div style="font-weight:600;font-size:13px">Facebook</div><div style="font-size:11px;color:var(--text2)">All visual posts + reels</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:8px 16px;background:var(--surface2);border-radius:var(--radius-sm)">
+            <span style="font-size:20px">▶️</span>
+            <div><div style="font-weight:600;font-size:13px">YouTube</div><div style="font-size:11px;color:var(--text2)">Reels/Shorts only</div></div>
+          </div>
+        </div>
+      </div>
+    `;
   },
 
   // ── DASHBOARD ──

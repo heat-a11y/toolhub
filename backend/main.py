@@ -298,6 +298,31 @@ def generate_lead_magnet():
         }
 
 
+# ── Cron jobs ──
+
+@app.get("/api/cron")
+def list_cron():
+    """List all scheduled cron jobs with their status."""
+    try:
+        import subprocess, json
+        # Use the hermes CLI to list cron jobs
+        result = subprocess.run(
+            ["hermes", "cron", "list", "--json"],
+            capture_output=True, text=True, timeout=15,
+            cwd=os.path.expanduser("~")
+        )
+        if result.returncode == 0:
+            return {"jobs": json.loads(result.stdout)}
+        # Fallback: read from the cron scheduler's state
+        state_path = os.path.expanduser("~/.hermes/cron/state.json")
+        if os.path.exists(state_path):
+            with open(state_path) as f:
+                return {"jobs": json.load(f)}
+    except Exception as e:
+        pass
+    return {"jobs": [], "error": "Could not fetch cron jobs"}
+
+
 # ── Run post logger stats ──
 
 @app.get("/api/logs")
