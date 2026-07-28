@@ -48,6 +48,20 @@ def get_db_stats(days: int = 30, platform: Optional[str] = None) -> dict:
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
 
+    # Ensure table exists
+    conn.execute("""CREATE TABLE IF NOT EXISTS posts (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        timestamp TEXT NOT NULL,
+        platform TEXT NOT NULL,
+        post_id TEXT,
+        post_type TEXT NOT NULL,
+        category TEXT,
+        stories TEXT,
+        status TEXT NOT NULL,
+        error TEXT
+    )""")
+    conn.commit()
+
     cutoff = datetime.now().timestamp() - days * 86400
     cutoff_str = datetime.fromtimestamp(cutoff).isoformat()
 
@@ -304,22 +318,50 @@ def generate_lead_magnet():
 def list_cron():
     """List all scheduled cron jobs with their status."""
     try:
-        import subprocess, json
-        # Use the hermes CLI to list cron jobs
+        import subprocess, re
         result = subprocess.run(
-            ["hermes", "cron", "list", "--json"],
+            ["hermes", "cron", "list"],
             capture_output=True, text=True, timeout=15,
             cwd=os.path.expanduser("~")
         )
         if result.returncode == 0:
-            return {"jobs": json.loads(result.stdout)}
-        # Fallback: read from the cron scheduler's state
-        state_path = os.path.expanduser("~/.hermes/cron/state.json")
-        if os.path.exists(state_path):
-            with open(state_path) as f:
-                return {"jobs": json.load(f)}
+            output = result.stdout
+            jobs = []
+            # Parse the table format
+            blocks = re.split(r'\n\s*\n', output)
+            for block in blocks:
+                block = block.strip()
+                if not block or block.startswith('┌') or block.startswith('└') or block.startswith('│'):
+                    continue
+                lines = block.split('\n')
+                if not lines:
+                    continue
+                first = lines[0].strip()
+                if not first:
+                    continue
+                # Check if first line has job_id
+                m = re.match(r'(\S+)\s+\[(\w+)\]', first)
+                if not m:
+                    continue
+                job_id = m.group(1)
+                state = m.group(2)
+                job = {"job_id": job_id, "state": state}
+                for line in lines[1:]:
+                    line = line.strip()
+                    if ':' in line:
+                        key, val = line.split(':', 1)
+                        key = key.strip().lower().replace(' ', '_')
+                        val = val.strip()
+                        job[key] = val
+                        # Parse last_run if present
+                        if key == 'last_run' and '  ' in val:
+                            parts = val.rsplit('  ', 1)
+                            job['last_run'] = parts[0].strip()
+                            job['last_status'] = parts[1].strip()
+                jobs.append(job)
+            return {"jobs": jobs}
     except Exception as e:
-        pass
+        print(f"Cron parse error: {e}")
     return {"jobs": [], "error": "Could not fetch cron jobs"}
 
 
@@ -337,6 +379,20 @@ def get_logs(
     import sqlite3
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
+
+    # Ensure table exists
+    conn.execute("""CREATE TABLE IF NOT EXISTS posts (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        timestamp TEXT NOT NULL,
+        platform TEXT NOT NULL,
+        post_id TEXT,
+        post_type TEXT NOT NULL,
+        category TEXT,
+        stories TEXT,
+        status TEXT NOT NULL,
+        error TEXT
+    )""")
+    conn.commit()
 
     cutoff = datetime.now().timestamp() - days * 86400
     cutoff_str = datetime.fromtimestamp(cutoff).isoformat()
