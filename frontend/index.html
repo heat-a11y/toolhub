@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tool Hub — Luna Sierra</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛠️</text></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ── Header ── -->
+  <header class="app-header">
+    <div class="logo">
+      🛠️ Tool<span>Hub</span>
+      <span class="logo-badge">v1</span>
+    </div>
+    <nav>
+      <a href="#" data-page="dashboard" class="active">Dashboard</a>
+      <a href="#" data-page="tools">Tools</a>
+      <a href="#" data-page="magnet">Lead Magnet</a>
+      <a href="#" data-page="config">Config</a>
+    </nav>
+    <div class="api-status" onclick="APP.checkApiStatus();APP.toast('Checking...','info')" title="Click to refresh">
+      <span class="dot" id="apiDot"></span>
+      <span id="apiText">Checking...</span>
+    </div>
+  </header>
+
+  <!-- ── Main ── -->
+  <main>
+
+    <!-- Dashboard -->
+    <section id="page-dashboard" class="page active">
+      <div class="page-header">
+        <h1>📊 Analytics Dashboard</h1>
+        <p>Post performance across all platforms — last 30 days</p>
+      </div>
+      <div id="dashboard-content">
+        <div class="loading-state"><span class="spinner"></span>Loading analytics...</div>
+      </div>
+    </section>
+
+    <!-- Tools -->
+    <section id="page-tools" class="page">
+      <div class="page-header">
+        <h1>🔧 Tool Hub</h1>
+        <p>Auto-discovered scripts from ~/.hermes/scripts/ — click to inspect and run</p>
+      </div>
+      <div id="tools-content">
+        <div class="loading-state"><span class="spinner"></span>Scanning scripts...</div>
+      </div>
+    </section>
+
+    <!-- Lead Magnet -->
+    <section id="page-magnet" class="page">
+      <div class="page-header">
+        <h1>⚡ Lead Magnet Generator</h1>
+        <p>Generate "Bitcoin for Beginners" PDF from your story pool</p>
+      </div>
+      <div id="magnet-content">
+        <div class="loading-state"><span class="spinner"></span>Loading...</div>
+      </div>
+    </section>
+
+    <!-- Config -->
+    <section id="page-config" class="page">
+      <div class="page-header">
+        <h1>⚙️ Configuration</h1>
+        <p>Connect the frontend to your local API server</p>
+      </div>
+      <div class="card config-form">
+        <div class="form-group">
+          <label for="configUrl">Backend API URL</label>
+          <input type="url" id="configUrl" placeholder="http://localhost:8080">
+          <div class="current-url">Current: <span id="currentUrl">http://localhost:8080</span></div>
+        </div>
+        <button class="btn btn-primary" onclick="APP.saveConfig()">💾 Save</button>
+        <button class="btn btn-secondary" style="margin-left:8px" onclick="APP.checkApiStatus()">🔄 Test Connection</button>
+      </div>
+      <div class="card">
+        <h3>How to Run the Backend</h3>
+        <div style="font-size:13px;line-height:1.6;color:var(--text2)">
+          <p>On your server, start the API:</p>
+          <pre class="log-output" style="margin:8px 0">cd ~/toolhub/backend && uvicorn main:app --host 0.0.0.0 --port 8080</pre>
+          <p>Make sure the port is accessible from this browser. For local use, the default URL works.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
