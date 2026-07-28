@@ -312,6 +312,67 @@ def generate_lead_magnet():
         }
 
 
+# ── PDF Library — 12 lead magnet variations ──
+
+PDF_TOPICS_LIST = [
+    {"id": "whitepaper", "title": "Bitcoin Whitepaper Explained", "subtitle": "Simple breakdown of Satoshi's vision", "color": "#F7931A"},
+    {"id": "austrian", "title": "Austrian Economics & Bitcoin", "subtitle": "Why the Austrian School predicted Bitcoin", "color": "#B47814"},
+    {"id": "investing", "title": "Bitcoin Investment Playbook", "subtitle": "Strategies for the intelligent accumulator", "color": "#22C55E"},
+    {"id": "security", "title": "Bitcoin Security Guide", "subtitle": "Self-custody done right", "color": "#6366F1"},
+    {"id": "future", "title": "Bitcoin & The Future of Money", "subtitle": "How digital gold is reshaping the world", "color": "#14B478"},
+    {"id": "mining", "title": "Bitcoin Mining Decoded", "subtitle": "How new coins are created", "color": "#FFA032"},
+    {"id": "vsgold", "title": "Bitcoin vs Gold", "subtitle": "Why digital gold is winning", "color": "#FFD700"},
+    {"id": "freedom", "title": "Bitcoin & Financial Freedom", "subtitle": "Opting out of the debt-based system", "color": "#DC3232"},
+    {"id": "history", "title": "Bitcoin History Timeline", "subtitle": "From whitepaper to worldwide adoption", "color": "#B464C8"},
+    {"id": "myths", "title": "Bitcoin Myths Debunked", "subtitle": "Separating fact from FUD", "color": "#3296FF"},
+    {"id": "glossary", "title": "The Bitcoin Glossary", "subtitle": "100+ terms every Bitcoiner should know", "color": "#3CB4DC"},
+    {"id": "maxi", "title": "The Bitcoin Maxi Manifesto", "subtitle": "Why only Bitcoin matters", "color": "#F7931A"},
+]
+
+class PdfTopicRequest(BaseModel):
+    upload: bool = False
+
+@app.get("/api/pdf-library")
+def list_pdf_topics():
+    """List all available PDF lead magnet topics."""
+    return {"topics": PDF_TOPICS_LIST, "count": len(PDF_TOPICS_LIST)}
+
+@app.post("/api/pdf-library/{topic_id}")
+def generate_pdf_topic(topic_id: str, req: PdfTopicRequest = PdfTopicRequest()):
+    """Generate a PDF for the given topic ID."""
+    try:
+        sys.path.insert(0, SCRIPTS_DIR)
+        from generate_pdf_library import generate_pdf
+        pdf_path, share_url = generate_pdf(topic_id, upload=req.upload)
+        return {
+            "success": True,
+            "topic_id": topic_id,
+            "path": pdf_path,
+            "url": share_url,
+            "size_kb": round(os.path.getsize(pdf_path) / 1024, 1) if os.path.exists(pdf_path) else 0,
+        }
+    except Exception as e:
+        import traceback
+        return {
+            "success": False,
+            "topic_id": topic_id,
+            "error": str(e),
+            "traceback": traceback.format_exc(),
+        }
+
+@app.post("/api/pdf-library/generate/all")
+def generate_all_pdfs(req: PdfTopicRequest = PdfTopicRequest()):
+    """Generate all 12 PDFs."""
+    try:
+        sys.path.insert(0, SCRIPTS_DIR)
+        from generate_pdf_library import generate_all
+        results = generate_all(upload=req.upload)
+        return {"success": True, "results": results, "total": len(results)}
+    except Exception as e:
+        import traceback
+        return {"success": False, "error": str(e), "traceback": traceback.format_exc()}
+
+
 # ── Cron jobs ──
 
 @app.get("/api/cron")

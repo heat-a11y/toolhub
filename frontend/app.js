@@ -67,6 +67,7 @@ const APP = {
       case 'schedule': this.renderSchedule(); break;
       case 'tools': this.renderTools(); break;
       case 'magnet': this.renderMagnet(); break;
+      case 'pdf-library': this.renderPdfLibrary(); break;
     }
   },
 
@@ -514,6 +515,137 @@ const APP = {
 
     btn.disabled = false;
     btn.innerHTML = '⚡ Generate Bitcoin for Beginners PDF';
+  },
+
+  // ── PDF LIBRARY ──
+  async renderPdfLibrary() {
+    const el = document.getElementById('pdf-library-content');
+    el.innerHTML = '<div class="loading-state"><span class="spinner"></span>Loading PDF library...</div>';
+
+    let topics = [];
+    try {
+      const data = await this.api('/api/pdf-library');
+      topics = data.topics || [];
+    } catch (e) {
+      el.innerHTML = `<div class="empty-state"><div class="icon">📚</div><p>${e.message}</p><button class="btn btn-secondary" onclick="APP.loadPage('pdf-library')">Retry</button></div>`;
+      return;
+    }
+
+    el.innerHTML = `
+      <div style="display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;align-items:center">
+        <div class="card" style="flex:1;min-width:200px">
+          <h3>PDF Library</h3>
+          <div class="big-number">${topics.length}</div>
+          <div style="font-size:13px;color:var(--text2)">lead magnet variations</div>
+        </div>
+        <button class="btn btn-primary" onclick="APP.generateAllPdfs()" id="generateAllBtn" style="height:fit-content">
+          ⚡ Generate All ${topics.length} PDFs
+        </button>
+      </div>
+      <div id="pdfLibraryGrid" class="pdf-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px">
+        ${topics.map(t => APP.pdfCard(t)).join('')}
+      </div>
+      <div id="pdfLibraryOutput" style="margin-top:16px"></div>
+    `;
+  },
+
+  pdfCard(t) {
+    return `
+      <div class="card" style="padding:16px;border-left:4px solid ${t.color};cursor:pointer" onclick="APP.generateSinglePdf('${t.id}')">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start">
+          <div>
+            <div style="font-weight:700;font-size:14px;color:var(--text)">${t.title}</div>
+            <div style="font-size:12px;color:var(--text2);margin-top:2px">${t.subtitle}</div>
+          </div>
+          <span class="category-tag content" style="background:${t.color}22;color:${t.color};font-size:10px">PDF</span>
+        </div>
+        <div style="margin-top:10px">
+          <button class="btn btn-primary btn-sm" onclick="event.stopPropagation();APP.generateSinglePdf('${t.id}')">
+            ⚡ Generate
+          </button>
+          <span id="pdfStatus_${t.id}" style="margin-left:8px;font-size:12px;color:var(--text2)"></span>
+        </div>
+      </div>
+    `;
+  },
+
+  async generateSinglePdf(topicId) {
+    const statusEl = document.getElementById(`pdfStatus_${topicId}`);
+    const output = document.getElementById('pdfLibraryOutput');
+    statusEl.innerHTML = '<span class="spinner" style="width:12px;height:12px"></span>';
+    output.innerHTML = '';
+
+    try {
+      const result = await this.api(`/api/pdf-library/${topicId}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ upload: false })
+      });
+
+      if (result.success) {
+        statusEl.innerHTML = `✅ ${result.size_kb} KB`;
+        output.innerHTML = `
+          <div style="padding:12px;background:rgba(34,197,94,.1);border-radius:var(--radius-sm)">
+            <div style="font-weight:600;color:var(--success)">✅ ${result.topic_id} generated</div>
+            <div style="font-size:13px;margin-top:4px;color:var(--text2)">${result.path} (${result.size_kb} KB)</div>
+          </div>
+        `;
+        this.toast(`✅ ${result.topic_id} PDF generated`, 'success');
+      } else {
+        statusEl.innerHTML = '❌';
+        output.innerHTML = `<div style="padding:12px;background:rgba(239,68,68,.1);border-radius:var(--radius-sm);color:var(--error)">${result.error || 'Failed'}</div>`;
+      }
+    } catch (e) {
+      statusEl.innerHTML = '❌';
+      output.innerHTML = `<div style="color:var(--error)">${e.message}</div>`;
+    }
+  },
+
+  async generateAllPdfs() {
+    const btn = document.getElementById('generateAllBtn');
+    const output = document.getElementById('pdfLibraryOutput');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner" style="width:14px;height:14px;border-width:2px"></span> Generating 12 PDFs...';
+    output.innerHTML = '';
+
+    try {
+      const result = await this.api('/api/pdf-library/generate/all', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ upload: false })
+      });
+
+      if (result.success && result.results) {
+        const successes = result.results.filter(r => r.success).length;
+        const failures = result.results.filter(r => !r.success).length;
+        output.innerHTML = `
+          <div style="padding:16px;background:rgba(34,197,94,.1);border-radius:var(--radius-sm)">
+            <div style="font-weight:600;color:var(--success)">✅ Generated ${successes}/${result.total} PDFs</div>
+            <div style="margin-top:8px;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px">
+              ${result.results.map(r => `
+                <div style="font-size:12px;padding:6px 10px;background:var(--surface2);border-radius:6px;color:${r.success ? 'var(--success)' : 'var(--error)'}">
+                  ${r.success ? '✅' : '❌'} ${r.id}
+                  ${r.success ? `<span style="color:var(--text2)">${r.size_kb || ''} KB</span>` : ''}
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+        if (failures === 0) {
+          this.toast(`✅ All ${result.total} PDFs generated!`, 'success');
+        } else {
+          this.toast(`⚠️ ${successes}/${result.total} generated, ${failures} failed`, failures === 0 ? 'success' : 'error');
+        }
+      } else {
+        output.innerHTML = `<div style="padding:12px;background:rgba(239,68,68,.1);border-radius:var(--radius-sm);color:var(--error)">${result.error || 'Batch generation failed'}</div>`;
+      }
+    } catch (e) {
+      output.innerHTML = `<div style="color:var(--error)">${e.message}</div>`;
+      this.toast(`Error: ${e.message}`, 'error');
+    }
+
+    btn.disabled = false;
+    btn.innerHTML = '⚡ Generate All 12 PDFs';
   },
 
   // ── CONFIG ──
