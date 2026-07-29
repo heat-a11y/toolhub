@@ -152,8 +152,8 @@ const APP = {
     for (const job of jobs) {
       const { emoji, desc } = this.getDisplay(job);
       const times = this.parseScheduleCron(job.schedule);
+      const isText = job.name && job.name.toLowerCase().includes('news briefing');
       const isWeekly = job.schedule && job.schedule.includes('* 6');
-      const isText = job.name && job.name.toLowerCase().includes('briefing');
 
       if (isText) textBriefings += times.length;
       else if (isWeekly) weeklyCount++;
