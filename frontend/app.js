@@ -91,6 +91,7 @@ const APP = {
     'This Week in Weird 9PM': { emoji: '🎲', desc: 'Random interesting facts and Wikipedia deep cuts' },
     'Daily Morning News Briefing': { emoji: '📰', desc: '6-section news: Bitcoin, Geopolitics, Malaysia, Tech, Wildcard, Weird' },
     'Weekly Affiliate Post (Saturday)': { emoji: '🤝', desc: 'HATA + Luno affiliate links push' },
+    'Meme History 6PM': { emoji: '🎭', desc: 'Origin stories of famous internet memes' },
   },
 
   getDisplay(job) {
