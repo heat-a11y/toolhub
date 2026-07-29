@@ -32,6 +32,7 @@ const APP = {
   async checkApiStatus() {
     const dot = document.getElementById('apiDot');
     const text = document.getElementById('apiText');
+    if (!dot || !text) return;
     dot.className = 'dot checking';
     text.textContent = 'Checking...';
     try {
@@ -80,89 +81,120 @@ const APP = {
     setTimeout(() => { el.style.opacity = '0'; el.style.transition = 'opacity .3s'; setTimeout(() => el.remove(), 300); }, 3000);
   },
 
-  // ── SCHEDULE ──
-  SCHEDULE_SLOTS: [
-    { time: '00:00', name: 'Bitcoin Philosophy', type: 'reel+carousel', script: 'daily_bitcoin_philosophy_post.py', emoji: '🧠', desc: 'Deep reflections on money, value, and freedom' },
-    { time: '03:00', name: 'BTC Bitcoin Bulletin', type: 'reel+carousel', script: 'daily_bitcoin_post.py', emoji: '₿', desc: 'Price, facts, and Austrian economics insights' },
-    { time: '08:00', name: 'History of Sound Money', type: 'reel+carousel', script: 'daily_history_post.py', emoji: '🏛️', desc: 'From Menger to Bitcoin — the fight for sound money' },
-    { time: '08:00', name: 'News Briefing', type: 'text', script: 'cron (LLM)', emoji: '📰', desc: '6-section news: Bitcoin, Geopolitics, Malaysia, Tech, Wildcard, Weird' },
-    { time: '12:00', name: 'Austrian Econ & AI Motivation', type: 'reel+carousel', script: 'daily_ig_post.py', emoji: '⚡', desc: 'Austrian economics meets AI-era motivation' },
-    { time: '12:00', name: 'News Briefing', type: 'text', script: 'cron (LLM)', emoji: '📰', desc: '6-section news briefing (repeat)' },
-    { time: '15:00', name: 'Engagement Post', type: 'single-image', script: 'engagement_post.py', emoji: '💬', desc: 'Hot-take single image for engagement' },
-    { time: '18:00', name: 'The Daily Brief', type: 'reel+carousel', script: 'daily_brief_post.py', emoji: '📋', desc: 'Visual news digest — top stories of the day' },
-    { time: '20:00', name: 'News Briefing', type: 'text', script: 'cron (LLM)', emoji: '📰', desc: 'Evening news briefing' },
-    { time: '21:00', name: 'Bitcoin Curiosities', type: 'reel+carousel', script: 'daily_quirky_post.py', emoji: '🔮', desc: 'Weird & wonderful Bitcoin and history facts' },
-    { time: '11:00 Sat', name: 'Weekly Affiliate Post', type: 'single-image', script: 'affiliate_post.py', emoji: '🤝', desc: 'HATA + Luno affiliate links push' },
-  ],
-
-  SCHEDULE_CRON_MAP: {
-    'Bitcoin Philosophy': 'cb20234ce271',
-    'BTC Bitcoin Bulletin': 'b9934a4874ea',
-    'History of Sound Money': '84d748414265',
-    'News Briefing': '176823e36a57',
-    'Austrian Econ & AI Motivation': 'cc805909a564',
-    'Engagement Post': '15ffac5a3112',
-    'The Daily Brief': 'fa04bd4f3d7c',
-    'Bitcoin Curiosities': '5125e86c6a83',
-    'Weekly Affiliate Post': '89c37687603c',
+  // ── Schedule Helpers ──
+  // Map cron job names to display metadata (emoji, description)
+  JOB_DISPLAY: {
+    'Bitcoin Bulletin 3AM': { emoji: '₿', desc: 'Price, facts, and Austrian economics insights' },
+    'Global Briefing 8AM': { emoji: '🌍', desc: 'World news across geopolitics and international affairs' },
+    'Malaysia Today 12PM': { emoji: '🇲🇾', desc: 'Malaysia news and regional developments' },
+    'Tech & AI Digest 3PM': { emoji: '🤖', desc: 'Tech industry and artificial intelligence updates' },
+    'This Week in Weird 9PM': { emoji: '🎲', desc: 'Random interesting facts and Wikipedia deep cuts' },
+    'Daily Morning News Briefing': { emoji: '📰', desc: '6-section news: Bitcoin, Geopolitics, Malaysia, Tech, Wildcard, Weird' },
+    'Weekly Affiliate Post (Saturday)': { emoji: '🤝', desc: 'HATA + Luno affiliate links push' },
   },
 
+  getDisplay(job) {
+    const name = job.name || '';
+    const display = this.JOB_DISPLAY[name];
+    const emoji = display ? display.emoji : '📌';
+    const desc = display ? display.desc : name;
+    return { emoji, desc };
+  },
+
+  parseScheduleCron(schedule) {
+    // Parse cron expression "0 8,12,20 * * *" into readable times
+    if (!schedule) return [];
+    const parts = schedule.trim().split(/\s+/);
+    if (parts.length < 2) return [];
+    const hourPart = parts[1];
+    const minute = parts[0] || '0';
+
+    // Handle comma-separated hours (e.g. "8,12,20")
+    const hours = hourPart.split(',');
+    return hours.map(h => {
+      const hh = parseInt(h);
+      const ampm = hh >= 12 ? 'PM' : 'AM';
+      const displayHour = hh % 12 || 12;
+      return {
+        hour: hh,
+        minute: parseInt(minute),
+        display: `${String(hh).padStart(2, '0')}:${minute.padStart(2, '0')}`,
+        display12: `${displayHour}:${minute.padStart(2, '0')} ${ampm}`,
+        minutes: hh * 60 + parseInt(minute),
+      };
+    });
+  },
+
+  // ── SCHEDULE ──
   async renderSchedule() {
     const el = document.getElementById('schedule-content');
     el.innerHTML = '<div class="loading-state"><span class="spinner"></span>Loading schedule...</div>';
 
-    // Try fetching live cron status from backend
-    let cronStatus = {};
+    let jobs = [];
     try {
-      const jobs = await this.api('/api/cron');
-      if (jobs && jobs.jobs) {
-        for (const j of jobs.jobs) {
-          cronStatus[j.name] = j;
-        }
-      }
+      const data = await this.api('/api/cron');
+      jobs = data.jobs || [];
     } catch (e) {
-      // No API — render static schedule
+      // API unavailable — show error
+      el.innerHTML = `<div class="empty-state"><div class="icon">📅</div><p>${e.message}</p><button class="btn btn-secondary" onclick="APP.loadPage('schedule')">Retry</button></div>`;
+      return;
     }
 
     const now = new Date();
-    const currentHour = now.getHours();
-    const currentMin = now.getMinutes();
-    const currentTimeMins = currentHour * 60 + currentMin;
+    const currentTimeMins = now.getHours() * 60 + now.getMinutes();
 
-    // Group by time
+    // Build timeline slots from live cron jobs
     const timeline = [];
-    const seen = new Set();
-    for (const slot of this.SCHEDULE_SLOTS) {
-      const key = slot.time + slot.name;
-      let count = 1;
-      let baseKey = key;
-      while (seen.has(baseKey)) { count++; baseKey = key + count; }
-      seen.add(baseKey);
+    let dailyPosts = 0;
+    let textBriefings = 0;
+    let weeklyCount = 0;
 
-      const [h, m] = slot.time.split(/[: ]/);
-      const slotMins = parseInt(h) * 60 + (parseInt(m) || 0);
-      const isPast = slotMins < currentTimeMins;
-      const isNow = Math.abs(slotMins - currentTimeMins) < 60;
+    for (const job of jobs) {
+      const { emoji, desc } = this.getDisplay(job);
+      const times = this.parseScheduleCron(job.schedule);
+      const isWeekly = job.schedule && job.schedule.includes('* 6');
+      const isText = job.name && job.name.toLowerCase().includes('briefing');
 
-      timeline.push({ ...slot, isPast, isNow, slotMins });
+      if (isText) textBriefings += times.length;
+      else if (isWeekly) weeklyCount++;
+      else dailyPosts += times.length;
+
+      for (const t of times) {
+        const isPast = t.minutes < currentTimeMins;
+        const isNow = Math.abs(t.minutes - currentTimeMins) < 60;
+        timeline.push({
+          time: t.display,
+          hour: t.hour,
+          name: job.name,
+          desc,
+          emoji,
+          script: job.name,
+          type: isText ? 'text' : 'reel+carousel',
+          isPast,
+          isNow,
+          job,
+          isWeekly,
+        });
+      }
     }
-    timeline.sort((a, b) => a.slotMins - b.slotMins);
+
+    timeline.sort((a, b) => a.hour - b.hour);
 
     el.innerHTML = `
       <div style="display:flex;gap:16px;margin-bottom:20px;flex-wrap:wrap">
         <div class="card" style="flex:1;min-width:200px">
           <h3>Daily Posts</h3>
-          <div class="big-number">${this.SCHEDULE_SLOTS.filter(s => s.type !== 'text').length}</div>
+          <div class="big-number">${dailyPosts}</div>
           <div style="font-size:13px;color:var(--text2)">visual posts per day</div>
         </div>
         <div class="card" style="flex:1;min-width:200px">
           <h3>Text Briefings</h3>
-          <div class="big-number">${this.SCHEDULE_SLOTS.filter(s => s.type === 'text').length}</div>
+          <div class="big-number">${textBriefings}</div>
           <div style="font-size:13px;color:var(--text2)">per day (8AM, 12PM, 8PM)</div>
         </div>
         <div class="card" style="flex:1;min-width:200px">
           <h3>Weekly</h3>
-          <div class="big-number">1</div>
+          <div class="big-number">${weeklyCount}</div>
           <div style="font-size:13px;color:var(--text2)">affiliate post (Saturday 11AM)</div>
         </div>
       </div>
@@ -171,10 +203,11 @@ const APP = {
         <h3>Daily Timeline ${now.toLocaleDateString()}</h3>
         <div style="margin-top:12px">
           ${timeline.map(slot => {
-            const cronName = this.SCHEDULE_CRON_MAP[slot.name];
-            const job = cronStatus[cronName];
-            const statusIcon = job ? (job.last_status === 'ok' ? '✅' : '❌') : '';
-            const statusClass = job ? (job.last_status === 'ok' ? 'success' : 'error') : '';
+            const job = slot.job;
+            const statusIcon = job.last_status === 'ok' ? '✅' : job.last_status ? '❌' : '';
+            const statusClass = job.last_status === 'ok' ? 'success' : 'error';
+            const lastRun = job.last_run ? new Date(job.last_run).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) : '-';
+            const nextRun = job.next_run ? new Date(job.next_run).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) : '-';
             return `
               <div class="schedule-slot ${slot.isNow ? 'now' : ''} ${slot.isPast ? 'past' : 'future'}" style="
                 display:flex;align-items:center;gap:12px;padding:12px 16px;
@@ -195,16 +228,11 @@ const APP = {
                     <span class="category-tag" style="margin-left:6px;background:${slot.type === 'text' ? 'rgba(99,102,241,.15)' : slot.type === 'single-image' ? 'rgba(34,197,94,.15)' : 'rgba(247,147,26,.15)'};color:${slot.type === 'text' ? '#818cf8' : slot.type === 'single-image' ? '#22c55e' : '#F7931A'}">${slot.type}</span>
                   </div>
                 </div>
-                ${job ? `
-                  <div style="text-align:right;font-size:12px">
-                    <div class="status-badge ${statusClass}" style="margin-bottom:4px">${statusIcon} ${job.last_status || 'never run'}</div>
-                    <div style="color:var(--text2)">next: ${job.next_run_at ? new Date(job.next_run_at).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) : '-'}</div>
-                  </div>
-                ` : `
-                  <div style="text-align:right;font-size:11px;color:var(--text2)">
-                    <span class="status-badge" style="background:var(--surface3);color:var(--text2)">⏳ cron</span>
-                  </div>
-                `}
+                <div style="text-align:right;font-size:12px">
+                  ${job.last_run ? `<div class="status-badge ${statusClass}" style="margin-bottom:4px">${statusIcon} ${job.last_status || 'never run'}</div>` : ''}
+                  <div style="color:var(--text2)">next: ${nextRun}</div>
+                  <div style="color:var(--text2);font-size:10px">last: ${lastRun}</div>
+                </div>
               </div>
             `;
           }).join('')}
@@ -294,7 +322,7 @@ const APP = {
               <div class="daily-bar-label">${d.date.slice(5)}</div>
             </div>`;
           }).join('')}
-          ${stats.daily.length === 0 ? '<div style="color:var(--text2);font-size:13px;padding:20px">No data for last 14 days</div>' : ''}
+          ${stats.daily.length === 0 ? '<div style="color:var(--text2);font-size:13px;padding:20px">No data for last 14 days — run a post first</div>' : ''}
         </div>
       </div>
 
@@ -314,7 +342,7 @@ const APP = {
                   <td style="font-size:11px;color:var(--text2)">${(r.post_id || '-').slice(0, 16)}</td>
                 </tr>
               `).join('')}
-              ${stats.recent.length === 0 ? '<tr><td colspan="6" style="text-align:center;color:var(--text2)">No posts recorded yet</td></tr>' : ''}
+              ${stats.recent.length === 0 ? '<tr><td colspan="6" style="text-align:center;color:var(--text2)">No posts recorded yet — data appears after the next cron run</td></tr>' : ''}
             </tbody>
           </table>
         </div>
@@ -456,8 +484,8 @@ const APP = {
       <div class="card" style="max-width:600px">
         <h3>Generate PDF</h3>
         <p style="font-size:13px;color:var(--text2);margin-bottom:16px">
-          Generates a "Bitcoin for Beginners" lead magnet PDF with ~40 curated stories across 5 sections, 
-          affiliate links, and Bitcoin orange branding. Generated file is saved to home directory and uploaded for sharing.
+          Generates a "Bitcoin for Beginners" lead magnet PDF with curated stories,
+          affiliate links, and Bitcoin orange branding. Generated file is saved to home directory.
         </p>
         <button class="btn btn-primary" id="generateBtn" onclick="APP.generateMagnet()">
           ⚡ Generate Bitcoin for Beginners PDF
@@ -486,7 +514,7 @@ const APP = {
       output.innerHTML = `
         ${result.success ? `
           <div style="padding:12px;background:rgba(34,197,94,.1);border-radius:var(--radius-sm)">
-            <div style="font-weight:600;color:var(--success)">✅ PDF Generated Successfully</div>
+            <div style="font-weight:600;color:var(--success)">PDF Generated Successfully</div>
             <div style="font-size:13px;margin-top:8px">
               <div>Path: <code style="color:var(--accent)">${result.path}</code></div>
               <div>Size: ${result.size_kb} KB</div>
@@ -495,12 +523,12 @@ const APP = {
           </div>
         ` : `
           <div style="padding:12px;background:rgba(239,68,68,.1);border-radius:var(--radius-sm);color:var(--error)">
-            <div style="font-weight:600">❌ Generation Failed</div>
+            <div style="font-weight:600">Generation Failed</div>
             <pre style="margin-top:8px;font-size:12px">${result.error || 'Unknown error'}</pre>
           </div>
         `}
       `;
-      this.toast(result.success ? '✅ PDF generated!' : '❌ Generation failed', result.success ? 'success' : 'error');
+      this.toast(result.success ? 'PDF generated!' : 'Generation failed', result.success ? 'success' : 'error');
       document.getElementById('magnetLastGen').innerHTML = result.success ? `
         <div style="font-size:13px">
           <div>Generated: ${new Date().toLocaleString()}</div>
@@ -557,7 +585,6 @@ const APP = {
             <div style="font-weight:700;font-size:14px;color:var(--text)">${t.title}</div>
             <div style="font-size:12px;color:var(--text2);margin-top:2px">${t.subtitle}</div>
           </div>
-          <span class="category-tag content" style="background:${t.color}22;color:${t.color};font-size:10px">PDF</span>
         </div>
         <div style="margin-top:10px">
           <button class="btn btn-primary btn-sm" onclick="event.stopPropagation();APP.generateSinglePdf('${t.id}')">
@@ -586,17 +613,17 @@ const APP = {
         statusEl.innerHTML = `✅ ${result.size_kb} KB`;
         output.innerHTML = `
           <div style="padding:12px;background:rgba(34,197,94,.1);border-radius:var(--radius-sm)">
-            <div style="font-weight:600;color:var(--success)">✅ ${result.topic_id} generated</div>
+            <div style="font-weight:600;color:var(--success)">${result.topic_id} generated</div>
             <div style="font-size:13px;margin-top:4px;color:var(--text2)">${result.path} (${result.size_kb} KB)</div>
           </div>
         `;
-        this.toast(`✅ ${result.topic_id} PDF generated`, 'success');
+        this.toast(`${result.topic_id} PDF generated`, 'success');
       } else {
-        statusEl.innerHTML = '❌';
+        statusEl.innerHTML = '✕';
         output.innerHTML = `<div style="padding:12px;background:rgba(239,68,68,.1);border-radius:var(--radius-sm);color:var(--error)">${result.error || 'Failed'}</div>`;
       }
     } catch (e) {
-      statusEl.innerHTML = '❌';
+      statusEl.innerHTML = '✕';
       output.innerHTML = `<div style="color:var(--error)">${e.message}</div>`;
     }
   },
@@ -620,7 +647,7 @@ const APP = {
         const failures = result.results.filter(r => !r.success).length;
         output.innerHTML = `
           <div style="padding:16px;background:rgba(34,197,94,.1);border-radius:var(--radius-sm)">
-            <div style="font-weight:600;color:var(--success)">✅ Generated ${successes}/${result.total} PDFs</div>
+            <div style="font-weight:600;color:var(--success)">Generated ${successes}/${result.total} PDFs</div>
             <div style="margin-top:8px;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px">
               ${result.results.map(r => `
                 <div style="font-size:12px;padding:6px 10px;background:var(--surface2);border-radius:6px;color:${r.success ? 'var(--success)' : 'var(--error)'}">
@@ -632,9 +659,9 @@ const APP = {
           </div>
         `;
         if (failures === 0) {
-          this.toast(`✅ All ${result.total} PDFs generated!`, 'success');
+          this.toast(`All ${result.total} PDFs generated!`, 'success');
         } else {
-          this.toast(`⚠️ ${successes}/${result.total} generated, ${failures} failed`, failures === 0 ? 'success' : 'error');
+          this.toast(`${successes}/${result.total} generated, ${failures} failed`, failures === 0 ? 'success' : 'error');
         }
       } else {
         output.innerHTML = `<div style="padding:12px;background:rgba(239,68,68,.1);border-radius:var(--radius-sm);color:var(--error)">${result.error || 'Batch generation failed'}</div>`;
@@ -660,7 +687,7 @@ const APP = {
     localStorage.setItem('toolhub_api', url);
     document.getElementById('currentUrl').textContent = url;
     this.checkApiStatus();
-    this.toast('✅ API URL saved', 'success');
+    this.toast('API URL saved', 'success');
   }
 };
 

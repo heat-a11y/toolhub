@@ -15,6 +15,8 @@ from typing import Optional
 
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 
 app = FastAPI(title="Tool Hub API", version="1.0.0")
@@ -27,6 +29,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Serve frontend static files from the same origin (fixes mixed-content CORS)
+FRONTEND_DIR = os.path.join(os.path.dirname(__file__), "..", "frontend")
+# Routes added at the bottom after all API endpoints
 
 SCRIPTS_DIR = os.path.expanduser("~/.hermes/scripts")
 DB_PATH = os.path.expanduser("~/.hermes/scripts/.post_log.db")
@@ -467,8 +473,26 @@ def get_logs(
     return {"logs": [dict(r) for r in rows], "total": len(rows)}
 
 
+# ── Frontend static routes (after all API routes, so API takes priority) ──
+
+if os.path.isdir(FRONTEND_DIR):
+    import mimetypes
+
+    @app.get("/", include_in_schema=False)
+    def serve_index():
+        return FileResponse(os.path.join(FRONTEND_DIR, "index.html"))
+
+    @app.get("/{full_path:path}", include_in_schema=False)
+    def serve_frontend(full_path: str):
+        filepath = os.path.join(FRONTEND_DIR, full_path)
+        if os.path.isfile(filepath) and not full_path.startswith("api/"):
+            return FileResponse(filepath)
+        raise HTTPException(status_code=404)
+
+
 if __name__ == "__main__":
     import uvicorn
     print("🚀 Tool Hub API running on http://localhost:8080")
+    print("   Frontend: http://localhost:8080")
     print("   API docs: http://localhost:8080/docs")
     uvicorn.run(app, host="0.0.0.0", port=8080)

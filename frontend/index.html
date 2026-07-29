@@ -35,7 +35,7 @@
     <!-- Dashboard -->
     <section id="page-dashboard" class="page active">
       <div class="page-header">
-        <h1>📊 Analytics Dashboard</h1>
+        <h1>Analytics Dashboard</h1>
         <p>Post performance across all platforms — last 30 days</p>
       </div>
       <div id="dashboard-content">
@@ -46,8 +46,8 @@
     <!-- Schedule -->
     <section id="page-schedule" class="page">
       <div class="page-header">
-        <h1>📅 Posting Schedule</h1>
-        <p>Daily cron jobs — visual posts + text briefings + weekly affiliate</p>
+        <h1>Posting Schedule</h1>
+        <p>Daily cron jobs — live from the scheduler</p>
       </div>
       <div id="schedule-content">
         <div class="loading-state"><span class="spinner"></span>Loading schedule...</div>
@@ -57,7 +57,7 @@
     <!-- Tools -->
     <section id="page-tools" class="page">
       <div class="page-header">
-        <h1>🔧 Tool Hub</h1>
+        <h1>Tool Hub</h1>
         <p>Auto-discovered scripts from ~/.hermes/scripts/ — click to inspect and run</p>
       </div>
       <div id="tools-content">
@@ -68,7 +68,7 @@
     <!-- Lead Magnet -->
     <section id="page-magnet" class="page">
       <div class="page-header">
-        <h1>⚡ Lead Magnet Generator</h1>
+        <h1>Lead Magnet Generator</h1>
         <p>Generate "Bitcoin for Beginners" PDF from your story pool</p>
       </div>
       <div id="magnet-content">
@@ -79,7 +79,7 @@
     <!-- PDF Library -->
     <section id="page-pdf-library" class="page">
       <div class="page-header">
-        <h1>📚 PDF Library</h1>
+        <h1>PDF Library</h1>
         <p>12 lead magnet variations — click to generate, or batch all at once</p>
       </div>
       <div id="pdf-library-content">
@@ -90,8 +90,8 @@
     <!-- Config -->
     <section id="page-config" class="page">
       <div class="page-header">
-        <h1>⚙️ Configuration</h1>
-        <p>Connect the frontend to your local API server</p>
+        <h1>Configuration</h1>
+        <p>Connect the dashboard to your local API server</p>
       </div>
       <div class="card config-form">
         <div class="form-group">
@@ -99,15 +99,15 @@
           <input type="url" id="configUrl" placeholder="http://localhost:8080">
           <div class="current-url">Current: <span id="currentUrl">http://localhost:8080</span></div>
         </div>
-        <button class="btn btn-primary" onclick="APP.saveConfig()">💾 Save</button>
-        <button class="btn btn-secondary" style="margin-left:8px" onclick="APP.checkApiStatus()">🔄 Test Connection</button>
+        <button class="btn btn-primary" onclick="APP.saveConfig()">Save</button>
+        <button class="btn btn-secondary" style="margin-left:8px" onclick="APP.checkApiStatus()">Test Connection</button>
       </div>
       <div class="card">
-        <h3>How to Run the Backend</h3>
+        <h3>Using the Dashboard</h3>
         <div style="font-size:13px;line-height:1.6;color:var(--text2)">
-          <p>On your server, start the API:</p>
-          <pre class="log-output" style="margin:8px 0">cd ~/toolhub/backend && uvicorn main:app --host 0.0.0.0 --port 8080</pre>
-          <p>Make sure the port is accessible from this browser. For local use, the default URL works.</p>
+          <p><strong>This page must be accessed via http://localhost:8080</strong> — not the GitHub Pages URL.</p>
+          <p>The GitHub Pages site cannot connect to the local API due to browser security (HTTPS → HTTP).</p>
+          <p>Open <a href="http://localhost:8080" target="_blank" style="color:var(--accent)">http://localhost:8080</a> directly for the full dashboard experience.</p>
         </div>
       </div>
     </section>
