@@ -1,9 +1,21 @@
 /* ── Tool Hub — Application Logic ── */
 
 const APP = {
-  apiUrl: localStorage.getItem('toolhub_api') || 'http://localhost:8080',
+  apiUrl: localStorage.getItem('toolhub_api') || '',
+  snapshot: null,
   currentPage: 'dashboard',
   toolsData: null,
+
+  async loadSnapshot() {
+    if (this.snapshot) return this.snapshot;
+    try {
+      const res = await fetch('data.json');
+      if (res.ok) {
+        this.snapshot = await res.json();
+      }
+    } catch {}
+    return this.snapshot;
+  },
 
   init() {
     this.checkApiStatus();
@@ -12,36 +24,72 @@ const APP = {
     this.setupConfigForm();
   },
 
-  // ── API ──
   async api(path, options = {}) {
-    try {
-      const res = await fetch(`${this.apiUrl}${path}`, {
-        headers: { 'Accept': 'application/json', ...options.headers },
-        ...options
-      });
-      if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
-      return await res.json();
-    } catch (e) {
-      if (e.name === 'TypeError' && e.message.includes('Failed to fetch')) {
-        throw new Error('Cannot connect to backend. Make sure the API server is running.');
+    // Try live backend first
+    if (this.apiUrl) {
+      try {
+        const res = await fetch(`${this.apiUrl}${path}`, {
+          headers: { 'Accept': 'application/json', ...options.headers },
+          ...options
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return await res.json();
+      } catch (e) {
+        if (e.name === 'TypeError' && e.message.includes('Failed to fetch')) {
+          // Backend not reachable — fall through to snapshot
+          this.apiUrl = ''; // disable for this session
+        } else {
+          throw e;
+        }
       }
-      throw e;
     }
+    // Fall back to static snapshot
+    const snap = await this.loadSnapshot();
+    if (!snap) {
+      throw new Error('Cannot connect to backend. Make sure the API server is running.');
+    }
+    // Return snapshot data matching the API path
+    if (path.startsWith('/api/health')) return { status: 'ok', time: snap.generated_at, mode: 'snapshot' };
+    if (path.startsWith('/api/stats')) return snap.stats || {};
+    if (path.startsWith('/api/tools/') && path.includes('/run')) throw new Error('Cannot run tools in snapshot mode');
+    if (path.startsWith('/api/tools/')) {
+      const name = path.split('/api/tools/')[1];
+      return (snap.tools || []).find(t => t.name === name) || {};
+    }
+    if (path.startsWith('/api/tools')) return { tools: snap.tools || [] };
+    if (path.startsWith('/api/cron')) return { jobs: snap.cron || [] };
+    if (path.startsWith('/api/pdf-library')) return { topics: snap.pdf_topics || [], count: snap.pdf_count || 0 };
+    if (path.startsWith('/api/config')) return { scripts_dir: '~/.hermes/scripts', db_exists: true, mode: 'snapshot' };
+    if (path.startsWith('/api/logs')) return { logs: snap.stats?.recent || [], total: snap.stats?.recent?.length || 0 };
+    throw new Error('Cannot connect to backend.');
   },
 
   async checkApiStatus() {
     const dot = document.getElementById('apiDot');
     const text = document.getElementById('apiText');
     if (!dot || !text) return;
+    if (!this.apiUrl) {
+      // Snapshot mode
+      dot.className = 'dot online';
+      text.textContent = 'Snapshot';
+      return;
+    }
     dot.className = 'dot checking';
     text.textContent = 'Checking...';
     try {
       const data = await this.api('/api/health');
       dot.className = 'dot online';
-      text.textContent = 'API Online';
+      text.textContent = data.mode === 'snapshot' ? 'Snapshot' : 'API Online';
     } catch (e) {
-      dot.className = 'dot';
-      text.textContent = 'Offline';
+      // Fall back to snapshot
+      const snap = await this.loadSnapshot();
+      if (snap) {
+        dot.className = 'dot online';
+        text.textContent = 'Snapshot';
+      } else {
+        dot.className = 'dot';
+        text.textContent = 'Offline';
+      }
     }
   },
 

@@ -1,0 +1,714 @@
+{
+  "generated_at": "2026-08-04T16:47:06.171578",
+  "stats": {
+    "total": 177,
+    "success": 177,
+    "failures": 0,
+    "by_platform": {
+      "youtube": 42,
+      "facebook": 67,
+      "instagram": 68
+    },
+    "by_category": {
+      "tech": 40,
+      "bitcoin": 47,
+      "combined": 18,
+      "random": 26,
+      "malaysia": 20,
+      "geopolitics": 17,
+      "meme": 9
+    },
+    "by_type": {
+      "reel": 127,
+      "carousel": 50
+    },
+    "days": 30,
+    "daily": [
+      {
+        "date": "2026-08-04",
+        "total": 16,
+        "success": 16,
+        "failures": 0
+      },
+      {
+        "date": "2026-08-03",
+        "total": 12,
+        "success": 12,
+        "failures": 0
+      },
+      {
+        "date": "2026-08-02",
+        "total": 15,
+        "success": 15,
+        "failures": 0
+      },
+      {
+        "date": "2026-08-01",
+        "total": 12,
+        "success": 12,
+        "failures": 0
+      },
+      {
+        "date": "2026-07-31",
+        "total": 17,
+        "success": 17,
+        "failures": 0
+      },
+      {
+        "date": "2026-07-30",
+        "total": 84,
+        "success": 84,
+        "failures": 0
+      },
+      {
+        "date": "2026-07-29",
+        "total": 21,
+        "success": 21,
+        "failures": 0
+      }
+    ],
+    "recent": [
+      {
+        "id": 177,
+        "timestamp": "2026-08-04T15:05:12.007741",
+        "platform": "youtube",
+        "post_id": "6a718f24940ed87388868694",
+        "post_type": "reel",
+        "category": "tech",
+        "stories": "[]",
+        "status": "success",
+        "error": null
+      },
+      {
+        "id": 176,
+        "timestamp": "2026-08-04T15:05:12.004728",
+        "platform": "facebook",
+        "post_id": "6a718f1bf8b075795f0d6ab3",
+        "post_type": "reel",
+        "category": "tech",
+        "stories": "[]",
+        "status": "success",
+        "error": null
+      },
+      {
+        "id": 175,
+        "timestamp": "2026-08-04T15:05:12.000392",
+        "platform": "instagram",
+        "post_id": "6a718f0ffc97471e2424147c",
+        "post_type": "reel",
+        "category": "tech",
+        "stories": "[]",
+        "status": "success",
+        "error": null
+      },
+      {
+        "id": 174,
+        "timestamp": "2026-08-04T12:37:22.161424",
+        "platform": "youtube",
+        "post_id": "6a716c7f2e9d172962a93709",
+        "post_type": "reel",
+        "category": "bitcoin",
+        "stories": "[]",
+        "status": "success",
+        "error": null
+      },
+      {
+        "id": 173,
+        "timestamp": "2026-08-04T12:37:22.158857",
+        "platform": "facebook",
+        "post_id": "6a716c76d702c24ecb21fe5c",
+        "post_type": "reel",
+        "category": "bitcoin",
+        "stories": "[]",
+        "status": "success",
+        "error": null
+      },
+      {
+        "id": 172,
+        "timestamp": "2026-08-04T12:37:22.155978",
+        "platform": "instagram",
+        "post_id": "6a716c6a3e02cab4771169a5",
+        "post_type": "reel",
+        "category": "bitcoin",
+        "stories": "[]",
+        "status": "success",
+        "error": null
+      },
+      {
+        "id": 171,
+        "timestamp": "2026-08-04T12:33:16.516984",
+        "platform": "youtube",
+        "post_id": "6a716b88e7bbda897d6b59a2",
+        "post_type": "reel",
+        "category": "bitcoin",
+        "stories": "[]",
+        "status": "success",
+        "error": null
+      },
+      {
+        "id": 170,
+        "timestamp": "2026-08-04T12:33:16.514278",
+        "platform": "facebook",
+        "post_id": "6a716b7dd702c24ecb21f290",
+        "post_type": "reel",
+        "category": "bitcoin",
+        "stories": "[]",
+        "status": "success",
+        "error": null
+      },
+      {
+        "id": 169,
+        "timestamp": "2026-08-04T12:33:16.511355",
+        "platform": "instagram",
+        "post_id": "6a716b71e7bbda897d6b5892",
+        "post_type": "reel",
+        "category": "bitcoin",
+        "stories": "[]",
+        "status": "success",
+        "error": null
+      },
+      {
+        "id": 168,
+        "timestamp": "2026-08-04T12:23:37.218816",
+        "platform": "instagram",
+        "post_id": "dry-run",
+        "post_type": "reel",
+        "category": "bitcoin",
+        "stories": "[]",
+        "status": "success",
+        "error": null
+      },
+      {
+        "id": 167,
+        "timestamp": "2026-08-04T10:02:35.414747",
+        "platform": "youtube",
+        "post_id": "6a7148372e9d172962a7992e",
+        "post_type": "reel",
+        "category": "combined",
+        "stories": "[]",
+        "status": "success",
+        "error": null
+      },
+      {
+        "id": 166,
+        "timestamp": "2026-08-04T10:02:35.412038",
+        "platform": "facebook",
+        "post_id": "6a71482e3e02cab4770fc3f9",
+        "post_type": "reel",
+        "category": "combined",
+        "stories": "[]",
+        "status": "success",
+        "error": null
+      },
+      {
+        "id": 165,
+        "timestamp": "2026-08-04T10:02:35.409141",
+        "platform": "instagram",
+        "post_id": "6a7148212e9d172962a79828",
+        "post_type": "reel",
+        "category": "combined",
+        "stories": "[]",
+        "status": "success",
+        "error": null
+      },
+      {
+        "id": 164,
+        "timestamp": "2026-08-04T03:02:36.484472",
+        "platform": "youtube",
+        "post_id": "6a70e5c26288d8e7cf0cf384",
+        "post_type": "reel",
+        "category": "bitcoin",
+        "stories": "[]",
+        "status": "success",
+        "error": null
+      },
+      {
+        "id": 163,
+        "timestamp": "2026-08-04T03:02:36.481663",
+        "platform": "facebook",
+        "post_id": "6a70e5b5647512b7b2ac4ff7",
+        "post_type": "reel",
+        "category": "bitcoin",
+        "stories": "[]",
+        "status": "success",
+        "error": null
+      },
+      {
+        "id": 162,
+        "timestamp": "2026-08-04T03:02:36.479044",
+        "platform": "instagram",
+        "post_id": "6a70e5a96288d8e7cf0cef16",
+        "post_type": "reel",
+        "category": "bitcoin",
+        "stories": "[]",
+        "status": "success",
+        "error": null
+      },
+      {
+        "id": 161,
+        "timestamp": "2026-08-03T21:03:27.124716",
+        "platform": "youtube",
+        "post_id": "6a70919400935686466f468e",
+        "post_type": "reel",
+        "category": "random",
+        "stories": "[]",
+        "status": "success",
+        "error": null
+      },
+      {
+        "id": 160,
+        "timestamp": "2026-08-03T21:03:27.122102",
+        "platform": "facebook",
+        "post_id": "6a709187e0d73277fa9814fc",
+        "post_type": "reel",
+        "category": "random",
+        "stories": "[]",
+        "status": "success",
+        "error": null
+      },
+      {
+        "id": 159,
+        "timestamp": "2026-08-03T21:03:27.119002",
+        "platform": "instagram",
+        "post_id": "6a70917900935686466f4407",
+        "post_type": "reel",
+        "category": "random",
+        "stories": "[]",
+        "status": "success",
+        "error": null
+      },
+      {
+        "id": 158,
+        "timestamp": "2026-08-03T15:02:29.295687",
+        "platform": "youtube",
+        "post_id": "6a703d01731b646a4a9e1a7f",
+        "post_type": "reel",
+        "category": "tech",
+        "stories": "[]",
+        "status": "success",
+        "error": null
+      }
+    ]
+  },
+  "tools": [
+    {
+      "name": "affiliate_post",
+      "filename": "affiliate_post.py",
+      "description": "Weekly Luno/HATA dedicated affiliate post \u2014 runs every Saturday.",
+      "category": "posting",
+      "size_kb": 6.9,
+      "modified": "2026-08-01T17:09:02.167182"
+    },
+    {
+      "name": "ai_polish",
+      "filename": "ai_polish.py",
+      "description": "AI polish module \u2014 uses GLM-5.2 via OpenCode Go to transform raw RSS items",
+      "category": "utility",
+      "size_kb": 17.3,
+      "modified": "2026-08-04T12:34:35.640391"
+    },
+    {
+      "name": "anime_maker",
+      "filename": "anime_maker.py",
+      "description": "NEON INHERITANCE \u2014 ANIMATED puppet engine v2.",
+      "category": "utility",
+      "size_kb": 26.4,
+      "modified": "2026-08-02T16:56:01.114561"
+    },
+    {
+      "name": "anime_rig",
+      "filename": "anime_rig.py",
+      "description": "Anime puppet rigs \u2014 layered character art for the motion engine.",
+      "category": "utility",
+      "size_kb": 22.3,
+      "modified": "2026-08-02T16:53:09.183501"
+    },
+    {
+      "name": "anime_shot_test",
+      "filename": "anime_shot_test.py",
+      "description": "Quick single-shot test for the anime engine (no full episode).",
+      "category": "utility",
+      "size_kb": 2.1,
+      "modified": "2026-08-02T16:37:56.427693"
+    },
+    {
+      "name": "content_repurposer",
+      "filename": "content_repurposer.py",
+      "description": "Content Repurposer \u2014 takes selected stories and generates multiple content formats.",
+      "category": "content",
+      "size_kb": 7.0,
+      "modified": "2026-07-28T14:45:23.297251"
+    },
+    {
+      "name": "content_selector",
+      "filename": "content_selector.py",
+      "description": "Unified content selector \u2014 randomly picks from ALL story categories.",
+      "category": "content",
+      "size_kb": 6.3,
+      "modified": "2026-07-26T11:34:36.682676"
+    },
+    {
+      "name": "daily_bitcoin_philosophy_post",
+      "filename": "daily_bitcoin_philosophy_post.py",
+      "description": "Daily 12AM Bitcoin Philosophy post \u2014 deep reflections on money, value, and freedom.",
+      "category": "posting",
+      "size_kb": 18.3,
+      "modified": "2026-07-28T18:18:39.181862"
+    },
+    {
+      "name": "daily_bitcoin_post",
+      "filename": "daily_bitcoin_post.py",
+      "description": "Daily 3AM Bitcoin post - price, facts, and historical events.",
+      "category": "posting",
+      "size_kb": 27.9,
+      "modified": "2026-07-29T11:50:51.905585"
+    },
+    {
+      "name": "daily_brief_post",
+      "filename": "daily_brief_post.py",
+      "description": "Daily 6PM Brief \u2014 visual news digest covering BTC, geopolitics, Malaysia, tech.",
+      "category": "posting",
+      "size_kb": 17.0,
+      "modified": "2026-07-28T18:18:37.960846"
+    },
+    {
+      "name": "daily_history_post",
+      "filename": "daily_history_post.py",
+      "description": "Daily 8AM \"History of Sound Money\" post \u2014 fetches Wikipedia On This Day events,",
+      "category": "posting",
+      "size_kb": 21.2,
+      "modified": "2026-07-28T18:18:39.720869"
+    },
+    {
+      "name": "daily_ig_post",
+      "filename": "daily_ig_post.py",
+      "description": "Daily social media post generator - Motivation + AI theme.",
+      "category": "posting",
+      "size_kb": 23.3,
+      "modified": "2026-07-28T18:18:40.826883"
+    },
+    {
+      "name": "daily_ig_post_fix",
+      "filename": "daily_ig_post_fix.py",
+      "description": "",
+      "category": "posting",
+      "size_kb": 0.3,
+      "modified": "2026-07-28T18:18:41.308889"
+    },
+    {
+      "name": "daily_meme_post",
+      "filename": "daily_meme_post.py",
+      "description": "Daily Meme History post \u2014 uses MEME_STORIES with real meme images as backgrounds",
+      "category": "posting",
+      "size_kb": 16.4,
+      "modified": "2026-08-03T13:56:08.034496"
+    },
+    {
+      "name": "daily_quirky_post",
+      "filename": "daily_quirky_post.py",
+      "description": "Daily Bitcoin / Austrian economics quirky facts post.",
+      "category": "posting",
+      "size_kb": 22.8,
+      "modified": "2026-07-28T18:18:40.283876"
+    },
+    {
+      "name": "engagement_post",
+      "filename": "engagement_post.py",
+      "description": "3PM Engagement Post \u2014 single polarizing take to drive comments.",
+      "category": "posting",
+      "size_kb": 8.6,
+      "modified": "2026-07-28T15:13:31.305495"
+    },
+    {
+      "name": "file_host",
+      "filename": "file_host.py",
+      "description": "Shared file upload utility \u2014 uploads to uguu.se (handles rapid sequential uploads, no rate limit).",
+      "category": "utility",
+      "size_kb": 1.2,
+      "modified": "2026-07-28T06:33:36.310100"
+    },
+    {
+      "name": "generate_lead_magnet",
+      "filename": "generate_lead_magnet.py",
+      "description": "Lead Magnet PDF Generator \u2014 'Bitcoin for Beginners' from story pool.",
+      "category": "content",
+      "size_kb": 9.5,
+      "modified": "2026-07-28T13:34:42.470336"
+    },
+    {
+      "name": "generate_pdf_library",
+      "filename": "generate_pdf_library.py",
+      "description": "Bitcoin PDF Library \u2014 12 lead magnet variations for content marketing.",
+      "category": "content",
+      "size_kb": 25.6,
+      "modified": "2026-07-28T17:52:36.329048"
+    },
+    {
+      "name": "make_reel",
+      "filename": "make_reel.py",
+      "description": "Generate a slow-paced reel with soft guitar/piano music, 3 animation styles.",
+      "category": "posting",
+      "size_kb": 12.1,
+      "modified": "2026-07-28T12:47:42.653371"
+    },
+    {
+      "name": "manga_casts",
+      "filename": "manga_casts.py",
+      "description": "Cast overrides per (episode, act) for manga_maker.",
+      "category": "utility",
+      "size_kb": 5.1,
+      "modified": "2026-08-02T15:30:29.148251"
+    },
+    {
+      "name": "manga_maker",
+      "filename": "manga_maker.py",
+      "description": "NEON INHERITANCE \u2014 motion manga generator.",
+      "category": "utility",
+      "size_kb": 35.3,
+      "modified": "2026-08-02T15:35:54.842258"
+    },
+    {
+      "name": "manga_series",
+      "filename": "manga_series.py",
+      "description": "NEON INHERITANCE \u2014 series bible + 20 episode scripts (2035, humans & AIs cohabiting).",
+      "category": "utility",
+      "size_kb": 41.6,
+      "modified": "2026-08-02T15:36:05.121450"
+    },
+    {
+      "name": "meme_history",
+      "filename": "meme_history.py",
+      "description": "Curated meme history stories \u2014 origin, context, and backstory of famous internet memes.",
+      "category": "utility",
+      "size_kb": 15.8,
+      "modified": "2026-07-29T18:33:20.332884"
+    },
+    {
+      "name": "narrated_reel",
+      "filename": "narrated_reel.py",
+      "description": "Build a narrated reel with edge-tts voiceover + word-accurate subtitles.",
+      "category": "posting",
+      "size_kb": 22.8,
+      "modified": "2026-07-29T11:51:13.188897"
+    },
+    {
+      "name": "news_poster",
+      "filename": "news_poster.py",
+      "description": "Unified daily news poster.",
+      "category": "posting",
+      "size_kb": 30.4,
+      "modified": "2026-07-31T06:01:56.668064"
+    },
+    {
+      "name": "post_logger",
+      "filename": "post_logger.py",
+      "description": "Post analytics tracker \u2014 logs every published post to SQLite.",
+      "category": "posting",
+      "size_kb": 3.4,
+      "modified": "2026-07-28T13:32:31.168146"
+    },
+    {
+      "name": "quota_watcher",
+      "filename": "quota_watcher.py",
+      "description": "OpenCode Go quota watcher \u2014 counts API requests per 5h window from agent logs.",
+      "category": "utility",
+      "size_kb": 7.4,
+      "modified": "2026-08-04T09:05:05.063077"
+    },
+    {
+      "name": "reel_helper",
+      "filename": "reel_helper.py",
+      "description": "Shared reel posting helper \u2014 imported by daily post scripts to add a reel after static images.",
+      "category": "posting",
+      "size_kb": 31.5,
+      "modified": "2026-08-04T12:21:04.990047"
+    },
+    {
+      "name": "short_cut",
+      "filename": "short_cut.py",
+      "description": "Short-form cutdown generator \u2014 takes a narrated reel and creates a 15s teaser.",
+      "category": "utility",
+      "size_kb": 2.3,
+      "modified": "2026-07-27T16:17:26.004029"
+    }
+  ],
+  "cron": [
+    {
+      "job_id": "176823e36a57",
+      "state": "active",
+      "name": "Daily Morning News Briefing",
+      "schedule": "15 8,12,20 * * *",
+      "repeat": "\u221e",
+      "next_run": "2026-08-04T20:15:00+08:00",
+      "deliver": "origin",
+      "last_run": "2026-08-04T12:32:08.451456+08:00",
+      "last_status": "ok"
+    },
+    {
+      "job_id": "89c37687603c",
+      "state": "active",
+      "name": "Weekly Affiliate Post (Saturday)",
+      "schedule": "0 11 * * 6",
+      "repeat": "\u221e",
+      "next_run": "2026-08-08T11:00:00+08:00",
+      "deliver": "origin",
+      "script": "post_affiliate.sh",
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run": "2026-08-01T11:00:37.960653+08:00",
+      "last_status": "ok"
+    },
+    {
+      "job_id": "7ffe4af0b734",
+      "state": "active",
+      "name": "Bitcoin Bulletin 3AM",
+      "schedule": "0 3 * * *",
+      "repeat": "\u221e",
+      "next_run": "2026-08-05T03:00:00+08:00",
+      "deliver": "origin",
+      "script": "post_bitcoin.sh",
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run": "2026-08-04T03:02:38.836954+08:00",
+      "last_status": "ok"
+    },
+    {
+      "job_id": "ac9cfc8f206e",
+      "state": "active",
+      "name": "Tech & AI Digest 3PM",
+      "schedule": "0 15 * * *",
+      "repeat": "\u221e",
+      "next_run": "2026-08-05T15:00:00+08:00",
+      "deliver": "origin",
+      "script": "post_tech.sh",
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run": "2026-08-04T15:05:14.071757+08:00",
+      "last_status": "ok"
+    },
+    {
+      "job_id": "a17f3a1e4151",
+      "state": "active",
+      "name": "This Week in Weird 9PM",
+      "schedule": "0 21 * * *",
+      "repeat": "\u221e",
+      "next_run": "2026-08-04T21:00:00+08:00",
+      "deliver": "origin",
+      "script": "post_random.sh",
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run": "2026-08-03T21:03:29.276106+08:00",
+      "last_status": "ok"
+    },
+    {
+      "job_id": "f6fb02536f18",
+      "state": "active",
+      "name": "Meme History 6PM",
+      "schedule": "0 18 * * *",
+      "repeat": "\u221e",
+      "next_run": "2026-08-04T18:00:00+08:00",
+      "deliver": "origin",
+      "script": "post_meme.sh",
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run": "2026-08-03T18:05:31.435553+08:00",
+      "last_status": "ok"
+    },
+    {
+      "job_id": "aa85c6e0779a",
+      "state": "active",
+      "name": "Global & Malaysia Brief 10AM",
+      "schedule": "0 10 * * *",
+      "repeat": "\u221e",
+      "next_run": "2026-08-05T10:00:00+08:00",
+      "deliver": "origin",
+      "script": "post_combined.sh",
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run": "2026-08-04T10:02:37.643626+08:00",
+      "last_status": "ok"
+    },
+    {
+      "job_id": "512de747e284",
+      "state": "active",
+      "name": "OpenCode Go Quota Watcher",
+      "schedule": "*/15 * * * *",
+      "repeat": "\u221e",
+      "next_run": "2026-08-04T17:00:00+08:00",
+      "deliver": "origin",
+      "script": "quota_watcher.py",
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run": "2026-08-04T16:45:15.106629+08:00",
+      "last_status": "ok"
+    }
+  ],
+  "pdf_topics": [
+    {
+      "id": "whitepaper",
+      "title": "Bitcoin Whitepaper Explained",
+      "subtitle": "Simple breakdown of Satoshi's vision",
+      "color": "#F7931A"
+    },
+    {
+      "id": "austrian",
+      "title": "Austrian Economics & Bitcoin",
+      "subtitle": "Why the Austrian School predicted Bitcoin",
+      "color": "#B47814"
+    },
+    {
+      "id": "investing",
+      "title": "Bitcoin Investment Playbook",
+      "subtitle": "Strategies for the intelligent accumulator",
+      "color": "#22C55E"
+    },
+    {
+      "id": "security",
+      "title": "Bitcoin Security Guide",
+      "subtitle": "Self-custody done right",
+      "color": "#6366F1"
+    },
+    {
+      "id": "future",
+      "title": "Bitcoin & The Future of Money",
+      "subtitle": "How digital gold is reshaping the world",
+      "color": "#14B478"
+    },
+    {
+      "id": "mining",
+      "title": "Bitcoin Mining Decoded",
+      "subtitle": "How new coins are created",
+      "color": "#FFA032"
+    },
+    {
+      "id": "vsgold",
+      "title": "Bitcoin vs Gold",
+      "subtitle": "Why digital gold is winning",
+      "color": "#FFD700"
+    },
+    {
+      "id": "freedom",
+      "title": "Bitcoin & Financial Freedom",
+      "subtitle": "Opting out of the debt-based system",
+      "color": "#DC3232"
+    },
+    {
+      "id": "history",
+      "title": "Bitcoin History Timeline",
+      "subtitle": "From whitepaper to worldwide adoption",
+      "color": "#B464C8"
+    },
+    {
+      "id": "myths",
+      "title": "Bitcoin Myths Debunked",
+      "subtitle": "Separating fact from FUD",
+      "color": "#3296FF"
+    },
+    {
+      "id": "glossary",
+      "title": "The Bitcoin Glossary",
+      "subtitle": "100+ terms every Bitcoiner should know",
+      "color": "#3CB4DC"
+    },
+    {
+      "id": "maxi",
+      "title": "The Bitcoin Maxi Manifesto",
+      "subtitle": "Why only Bitcoin matters",
+      "color": "#F7931A"
+    }
+  ],
+  "pdf_count": 12
+}
