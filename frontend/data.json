@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-10T17:26:02.300181",
+  "generated_at": "2026-08-10T17:53:18.625894",
   "stats": {
     "total": 246,
     "success": 246,
@@ -472,6 +472,14 @@
       "modified": "2026-08-10T13:18:31.612984"
     },
     {
+      "name": "views_auto_youtube",
+      "filename": "views_auto_youtube.py",
+      "description": "Auto-pull YouTube view/subscriber stats via the YouTube Data API v3.",
+      "category": "utility",
+      "size_kb": 5.3,
+      "modified": "2026-08-10T17:52:33.999427"
+    },
+    {
       "name": "views_tracker",
       "filename": "views_tracker.py",
       "description": "View tracking for Tool Hub \u2014 logs platform view/follower snapshots to SQLite.",
@@ -592,11 +600,11 @@
       "name": "OpenCode Go Quota Watcher",
       "schedule": "*/15 * * * *",
       "repeat": "\u221e",
-      "next_run": "2026-08-10T17:30:00+08:00",
+      "next_run": "2026-08-10T18:00:00+08:00",
       "deliver": "origin",
       "script": "quota_watcher.py",
       "mode": "no-agent (script stdout delivered directly)",
-      "last_run": "2026-08-10T17:15:49.522138+08:00",
+      "last_run": "2026-08-10T17:45:50.957384+08:00",
       "last_status": "ok"
     },
     {
@@ -605,11 +613,11 @@
       "name": "Weekly Limit Watchdog",
       "schedule": "*/10 * * * *",
       "repeat": "\u221e",
-      "next_run": "2026-08-10T17:30:00+08:00",
+      "next_run": "2026-08-10T18:00:00+08:00",
       "deliver": "origin",
       "script": "weekly_limit_watchdog.py",
       "mode": "no-agent (script stdout delivered directly)",
-      "last_run": "2026-08-10T17:20:49.918769+08:00",
+      "last_run": "2026-08-10T17:50:51.388227+08:00",
       "last_status": "ok"
     },
     {
@@ -631,10 +639,27 @@
       "deliver": "origin",
       "script": "post_weekly_compilation.sh",
       "mode": "no-agent (script stdout delivered directly)"
+    },
+    {
+      "job_id": "2f9ac70b4d72",
+      "state": "active",
+      "name": "Weekly Views Snapshot Reminder",
+      "schedule": "0 20 * * 0",
+      "repeat": "\u221e",
+      "next_run": "2026-08-16T20:00:00+08:00",
+      "deliver": "origin"
     }
   ],
   "views": {
     "snapshots": [
+      {
+        "id": 5,
+        "timestamp": "2026-08-10T17:53:12.816682",
+        "platform": "youtube",
+        "views": 3096,
+        "followers": 1,
+        "note": "auto: 113 videos"
+      },
       {
         "id": 1,
         "timestamp": "2026-08-10T17:21:07.116038",
