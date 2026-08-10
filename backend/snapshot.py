@@ -138,7 +138,20 @@ def get_cron():
         pass
     return []
 
-# 4. PDF library
+# 4. Views tracker
+def get_views_data():
+    try:
+        sys.path.insert(0, SCRIPTS_DIR)
+        from views_tracker import get_views, get_trend
+        return {
+            "snapshots": get_views(days=90),
+            "trend": get_trend(days=90),
+            "platforms": ["instagram", "facebook", "youtube", "tiktok", "x"],
+        }
+    except Exception as e:
+        return {"snapshots": [], "trend": [], "platforms": [], "error": str(e)}
+
+# 5. PDF library
 PDF_TOPICS = [
     {"id": "whitepaper", "title": "Bitcoin Whitepaper Explained", "subtitle": "Simple breakdown of Satoshi's vision", "color": "#F7931A"},
     {"id": "austrian", "title": "Austrian Economics & Bitcoin", "subtitle": "Why the Austrian School predicted Bitcoin", "color": "#B47814"},
@@ -159,6 +172,7 @@ snapshot = {
     "stats": get_stats(),
     "tools": scan_scripts(),
     "cron": get_cron(),
+    "views": get_views_data(),
     "pdf_topics": PDF_TOPICS,
     "pdf_count": len(PDF_TOPICS),
 }

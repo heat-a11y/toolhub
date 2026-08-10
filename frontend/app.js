@@ -59,6 +59,7 @@ const APP = {
     if (path.startsWith('/api/tools')) return { tools: snap.tools || [] };
     if (path.startsWith('/api/cron')) return { jobs: snap.cron || [] };
     if (path.startsWith('/api/pdf-library')) return { topics: snap.pdf_topics || [], count: snap.pdf_count || 0 };
+    if (path.startsWith('/api/views')) return snap.views || { snapshots: [], trend: [], platforms: [] };
     if (path.startsWith('/api/config')) return { scripts_dir: '~/.hermes/scripts', db_exists: true, mode: 'snapshot' };
     if (path.startsWith('/api/logs')) return { logs: snap.stats?.recent || [], total: snap.stats?.recent?.length || 0 };
     throw new Error('Cannot connect to backend.');
@@ -115,6 +116,7 @@ const APP = {
       case 'dashboard': this.renderDashboard(); break;
       case 'schedule': this.renderSchedule(); break;
       case 'tools': this.renderTools(); break;
+      case 'views': this.renderViews(); break;
       case 'magnet': this.renderMagnet(); break;
       case 'pdf-library': this.renderPdfLibrary(); break;
     }
@@ -522,6 +524,213 @@ const APP = {
       this.toast(result.success ? `✅ ${name} completed` : `❌ ${name} failed (exit ${result.exit_code})`, result.success ? 'success' : 'error');
     } catch (e) {
       outputEl.innerHTML = `<div style="color:var(--error)">${e.message}</div>`;
+      this.toast(`Error: ${e.message}`, 'error');
+    }
+  },
+
+  // ── VIEWS TRACKER ──
+  async renderViews() {
+    const el = document.getElementById('views-content');
+    el.innerHTML = '<div class="loading-state"><span class="spinner"></span>Loading views...</div>';
+
+    try {
+      const data = await this.api('/api/views');
+      this.renderViewsPage(el, data);
+    } catch (e) {
+      el.innerHTML = `<div class="empty-state"><div class="icon">📊</div><p>${e.message}</p><button class="btn btn-secondary" onclick="APP.loadPage('views')">Retry</button></div>`;
+    }
+  },
+
+  renderViewsPage(el, data) {
+    const platforms = data.platforms || ['instagram', 'facebook', 'youtube', 'tiktok', 'x'];
+    const trend = data.trend || [];
+    const snapshots = data.snapshots || [];
+
+    const platformNames = {
+      instagram: 'Instagram', facebook: 'Facebook', youtube: 'YouTube',
+      tiktok: 'TikTok', x: 'X / Twitter'
+    };
+    const platformColors = {
+      instagram: '#E4405F', facebook: '#1877F2', youtube: '#FF0000',
+      tiktok: '#25F4EE', x: '#999999'
+    };
+
+    // Latest value per platform (for stat cards)
+    const latest = {};
+    for (const s of snapshots) {
+      if (!latest[s.platform]) latest[s.platform] = s;
+    }
+
+    // Build per-platform series for the chart (oldest -> newest)
+    const series = {};
+    for (const p of platforms) series[p] = [];
+    for (const t of trend) {
+      if (series[t.platform]) series[t.platform].push({ date: t.date, views: t.views });
+    }
+
+    // Chart: simple SVG line chart, one polyline per platform
+    const allDates = [...new Set(trend.map(t => t.date))].sort();
+    const maxViews = Math.max(1, ...trend.map(t => t.views || 0));
+    const W = 860, H = 260, padL = 64, padB = 32, padT = 16, padR = 16;
+    const cw = W - padL - padR, ch = H - padT - padB;
+
+    const xPos = d => allDates.length <= 1 ? padL + cw / 2 : padL + (allDates.indexOf(d) / (allDates.length - 1)) * cw;
+    const yPos = v => padT + ch - (v / maxViews) * ch;
+
+    let chartHtml = '';
+    if (allDates.length === 0) {
+      chartHtml = '<div class="empty-state" style="margin:20px 0"><div class="icon">📈</div><p>No view snapshots yet — add one below.</p></div>';
+    } else {
+      // Grid lines
+      let grid = '';
+      for (let i = 0; i <= 4; i++) {
+        const y = padT + (ch / 4) * i;
+        const val = Math.round(maxViews * (1 - i / 4));
+        grid += `<line x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}" stroke="var(--border)" stroke-width="1" stroke-dasharray="3,4"/>`;
+        grid += `<text x="${padL - 8}" y="${y + 4}" text-anchor="end" fill="var(--text2)" font-size="11">${val >= 1000 ? (val/1000).toFixed(1) + 'k' : val}</text>`;
+      }
+      let xlabels = '';
+      allDates.forEach(d => {
+        xlabels += `<text x="${xPos(d)}" y="${H - 8}" text-anchor="middle" fill="var(--text2)" font-size="10">${d.slice(5)}</text>`;
+      });
+
+      let polylines = '';
+      for (const p of platforms) {
+        const pts = series[p].filter(pt => pt.views !== undefined);
+        if (pts.length === 0) continue;
+        const coords = pts.map(pt => `${xPos(pt.date)},${yPos(pt.views)}`).join(' ');
+        const color = platformColors[p] || '#F7931A';
+        polylines += `<polyline points="${coords}" fill="none" stroke="${color}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>`;
+        // Last point dot + label
+        const last = pts[pts.length - 1];
+        polylines += `<circle cx="${xPos(last.date)}" cy="${yPos(last.views)}" r="4" fill="${color}"/>`;
+        polylines += `<text x="${xPos(last.date) + 6}" y="${yPos(last.views) - 6}" fill="${color}" font-size="11" font-weight="600">${(last.views/1000).toFixed(1)}k</text>`;
+      }
+
+      chartHtml = `
+        <div class="card" style="margin-bottom:20px">
+          <div class="card-header"><h3>View Trend (last 90 days)</h3></div>
+          <div style="overflow-x:auto">
+            <svg viewBox="0 0 ${W} ${H}" style="width:100%;min-width:600px;height:auto;display:block">
+              ${grid}
+              ${xlabels}
+              ${polylines}
+            </svg>
+          </div>
+          <div style="display:flex;gap:16px;flex-wrap:wrap;padding:0 8px 8px">
+            ${platforms.map(p => {
+              const pts = series[p].filter(pt => pt.views !== undefined);
+              if (!pts.length) return '';
+              const last = pts[pts.length - 1];
+              const first = pts[0];
+              const delta = last.views - first.views;
+              const pct = first.views > 0 ? ((delta / first.views) * 100) : 0;
+              return `<div style="display:flex;align-items:center;gap:6px;font-size:12px">
+                <span style="width:10px;height:10px;border-radius:50%;background:${platformColors[p] || '#F7931A'}"></span>
+                ${platformNames[p] || p}: <b>${last.views.toLocaleString()}</b>
+                <span style="color:${delta >= 0 ? 'var(--success)' : 'var(--error)'}">${delta >= 0 ? '▲' : '▼'} ${Math.abs(pct).toFixed(1)}%</span>
+              </div>`;
+            }).join('')}
+          </div>
+        </div>`;
+    }
+
+    // Stat cards
+    const statCards = platforms.map(p => {
+      const l = latest[p];
+      return `
+        <div class="stat-card">
+          <div style="font-size:13px;color:var(--text2);display:flex;align-items:center;gap:6px">
+            <span style="width:8px;height:8px;border-radius:50%;background:${platformColors[p] || '#F7931A'}"></span>
+            ${platformNames[p] || p}
+          </div>
+          <div style="font-size:22px;font-weight:700;margin-top:6px">${l ? l.views.toLocaleString() : '—'}</div>
+          <div style="font-size:12px;color:var(--text2)">${l ? 'as of ' + l.timestamp.slice(0,10) : 'no data'}</div>
+        </div>`;
+    }).join('');
+
+    // Add snapshot form (only useful with live backend)
+    const canWrite = !!this.apiUrl;
+
+    el.innerHTML = `
+      <div class="stats-grid" style="margin-bottom:20px">${statCards}</div>
+      ${chartHtml}
+      <div class="card">
+        <div class="card-header"><h3>Log Snapshot</h3></div>
+        <p style="font-size:13px;color:var(--text2);margin:0 0 12px">
+          ${canWrite
+            ? 'Enter today\'s numbers from each platform dashboard and click Save. Each save appends a dated snapshot.'
+            : 'Snapshot mode: connect to the local backend (Config tab) to log new snapshots. Existing data shown below.'}
+        </p>
+        ${canWrite ? `
+        <div id="views-form">
+          ${platforms.map((p, i) => `
+            <div style="display:flex;gap:12px;align-items:center;margin-bottom:10px;flex-wrap:wrap">
+              <label style="width:110px;font-size:13px;color:var(--text2)">${platformNames[p] || p}</label>
+              <input type="number" id="viewsInput_${p}" placeholder="Views" min="0" style="flex:1;min-width:120px">
+              <input type="number" id="followersInput_${p}" placeholder="Followers (optional)" min="0" style="flex:1;min-width:120px">
+            </div>`).join('')}
+          <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+            <input type="text" id="viewsNote" placeholder="Note (optional, e.g. 'week 2 baseline')" style="flex:1;min-width:200px">
+            <button class="btn btn-primary" onclick="APP.saveViews()">💾 Save Snapshot</button>
+          </div>
+        </div>
+        ` : ''}
+        <div style="margin-top:14px">
+          <h4 style="font-size:12px;color:var(--text2);margin:0 0 8px">Recent snapshots (${snapshots.length})</h4>
+          <div style="max-height:220px;overflow-y:auto">
+            <table class="table">
+              <thead><tr><th>Date</th><th>Platform</th><th>Views</th><th>Followers</th><th>Note</th></tr></thead>
+              <tbody>
+                ${snapshots.slice(0, 30).map(s => `
+                  <tr>
+                    <td>${s.timestamp.slice(0, 10)}</td>
+                    <td>${platformNames[s.platform] || s.platform}</td>
+                    <td>${s.views.toLocaleString()}</td>
+                    <td>${s.followers ? s.followers.toLocaleString() : '—'}</td>
+                    <td style="color:var(--text2)">${s.note || ''}</td>
+                  </tr>`).join('')}
+                ${snapshots.length === 0 ? '<tr><td colspan="5" style="color:var(--text2)">No snapshots yet.</td></tr>' : ''}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>`;
+  },
+
+  async saveViews() {
+    const platforms = ['instagram', 'facebook', 'youtube', 'tiktok', 'x'];
+    const entries = [];
+    for (const p of platforms) {
+      const v = document.getElementById(`viewsInput_${p}`);
+      const f = document.getElementById(`followersInput_${p}`);
+      const views = v && v.value ? parseInt(v.value) : 0;
+      const followers = f && f.value ? parseInt(f.value) : 0;
+      if (views > 0 || followers > 0) {
+        entries.push({ platform: p, views, followers });
+      }
+    }
+    const note = document.getElementById('viewsNote');
+    if (note && note.value) {
+      entries.forEach(e => e.note = note.value);
+    }
+    if (entries.length === 0) {
+      this.toast('Enter at least one number first', 'error');
+      return;
+    }
+    try {
+      const res = await this.api('/api/views', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ entries })
+      });
+      if (res.success) {
+        this.toast(`✅ Logged ${res.logged} snapshot(s)`, 'success');
+        this.renderViews();
+      } else {
+        this.toast(`Error: ${res.error}`, 'error');
+      }
+    } catch (e) {
       this.toast(`Error: ${e.message}`, 'error');
     }
   },

@@ -473,6 +473,42 @@ def get_logs(
     return {"logs": [dict(r) for r in rows], "total": len(rows)}
 
 
+# ── Views tracker (platform view/follower snapshots) ──
+
+class ViewsAddRequest(BaseModel):
+    entries: list[dict]  # [{platform, views, followers?, note?}]
+
+@app.get("/api/views")
+def views_api(
+    days: int = Query(90, description="Lookback days"),
+    platform: Optional[str] = Query(None, description="Filter by platform"),
+):
+    """Get view/follower snapshots. Returns both raw and per-day trend series."""
+    try:
+        sys.path.insert(0, SCRIPTS_DIR)
+        from views_tracker import get_views, get_trend
+        return {
+            "snapshots": get_views(days=days, platform=platform),
+            "trend": get_trend(days=days),
+            "platforms": ["instagram", "facebook", "youtube", "tiktok", "x"],
+        }
+    except Exception as e:
+        import traceback
+        return {"snapshots": [], "trend": [], "platforms": [], "error": str(e), "traceback": traceback.format_exc()}
+
+
+@app.post("/api/views")
+def views_add(req: ViewsAddRequest):
+    """Log one or more view/follower snapshots."""
+    try:
+        sys.path.insert(0, SCRIPTS_DIR)
+        from views_tracker import log_views
+        n = log_views(req.entries)
+        return {"success": True, "logged": n}
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+
+
 # ── Frontend static routes (after all API routes, so API takes priority) ──
 
 if os.path.isdir(FRONTEND_DIR):
