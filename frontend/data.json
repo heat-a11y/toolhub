@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-16T20:33:40.390031",
+  "generated_at": "2026-08-16T20:37:12.393717",
   "stats": {
     "total": 340,
     "success": 340,
@@ -915,7 +915,9 @@
       "schedule": "30 20 * * 0",
       "repeat": "\u221e",
       "next_run": "2026-08-23T20:30:00+08:00",
-      "deliver": "origin"
+      "deliver": "origin",
+      "last_run": "2026-08-16T20:34:25.055996+08:00",
+      "last_status": "ok"
     },
     {
       "job_id": "746e44c206b7",
@@ -1047,6 +1049,30 @@
   "views": {
     "snapshots": [
       {
+        "id": 8,
+        "timestamp": "2026-08-16T20:37:01.158545",
+        "platform": "facebook",
+        "views": 8327,
+        "followers": 0,
+        "note": ""
+      },
+      {
+        "id": 9,
+        "timestamp": "2026-08-16T20:37:01.158545",
+        "platform": "instagram",
+        "views": 5411,
+        "followers": 0,
+        "note": ""
+      },
+      {
+        "id": 10,
+        "timestamp": "2026-08-16T20:37:01.158545",
+        "platform": "tiktok",
+        "views": 0,
+        "followers": 0,
+        "note": ""
+      },
+      {
         "id": 7,
         "timestamp": "2026-08-16T20:31:31.026507",
         "platform": "youtube",
@@ -1112,6 +1138,24 @@
         "date": "2026-08-10",
         "platform": "youtube",
         "views": 2700,
+        "followers": 0
+      },
+      {
+        "date": "2026-08-16",
+        "platform": "facebook",
+        "views": 8327,
+        "followers": 0
+      },
+      {
+        "date": "2026-08-16",
+        "platform": "instagram",
+        "views": 5411,
+        "followers": 0
+      },
+      {
+        "date": "2026-08-16",
+        "platform": "tiktok",
+        "views": 0,
         "followers": 0
       },
       {
