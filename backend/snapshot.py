@@ -6,7 +6,7 @@ from pathlib import Path
 
 SCRIPTS_DIR = os.path.expanduser("~/.hermes/scripts")
 DB_PATH = os.path.expanduser("~/.hermes/scripts/.post_log.db")
-OUTPUT_PATH = os.path.expanduser("~/toolhub/frontend/data.json")
+OUTPUT_PATH = os.path.expanduser("~/projects/toolhub/frontend/data.json")
 
 # 1. Post analytics stats
 def get_stats():

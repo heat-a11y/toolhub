@@ -1,33 +1,71 @@
 {
-  "generated_at": "2026-08-10T17:53:18.625894",
+  "generated_at": "2026-08-16T20:33:40.390031",
   "stats": {
-    "total": 246,
-    "success": 246,
+    "total": 340,
+    "success": 340,
     "failures": 0,
     "by_platform": {
-      "youtube": 65,
-      "facebook": 90,
-      "instagram": 91
+      "youtube": 92,
+      "tiktok": 15,
+      "facebook": 116,
+      "instagram": 117
     },
     "by_category": {
-      "tech": 58,
-      "combined": 34,
-      "bitcoin": 65,
-      "random": 43,
+      "meme": 17,
+      "crossover": 12,
+      "tech": 76,
+      "random": 65,
+      "bitcoin": 86,
+      "combined": 47,
       "malaysia": 20,
-      "geopolitics": 17,
-      "meme": 9
+      "geopolitics": 17
     },
     "by_type": {
-      "reel": 196,
+      "reel": 290,
       "carousel": 50
     },
     "days": 30,
     "daily": [
       {
+        "date": "2026-08-16",
+        "total": 16,
+        "success": 16,
+        "failures": 0
+      },
+      {
+        "date": "2026-08-15",
+        "total": 21,
+        "success": 21,
+        "failures": 0
+      },
+      {
+        "date": "2026-08-14",
+        "total": 16,
+        "success": 16,
+        "failures": 0
+      },
+      {
+        "date": "2026-08-13",
+        "total": 14,
+        "success": 14,
+        "failures": 0
+      },
+      {
+        "date": "2026-08-12",
+        "total": 12,
+        "success": 12,
+        "failures": 0
+      },
+      {
+        "date": "2026-08-11",
+        "total": 12,
+        "success": 12,
+        "failures": 0
+      },
+      {
         "date": "2026-08-10",
-        "total": 9,
-        "success": 9,
+        "total": 12,
+        "success": 12,
         "failures": 0
       },
       {
@@ -71,44 +109,102 @@
         "total": 12,
         "success": 12,
         "failures": 0
-      },
-      {
-        "date": "2026-08-02",
-        "total": 15,
-        "success": 15,
-        "failures": 0
-      },
-      {
-        "date": "2026-08-01",
-        "total": 12,
-        "success": 12,
-        "failures": 0
-      },
-      {
-        "date": "2026-07-31",
-        "total": 17,
-        "success": 17,
-        "failures": 0
-      },
-      {
-        "date": "2026-07-30",
-        "total": 84,
-        "success": 84,
-        "failures": 0
-      },
-      {
-        "date": "2026-07-29",
-        "total": 21,
-        "success": 21,
-        "failures": 0
       }
     ],
     "recent": [
       {
-        "id": 246,
-        "timestamp": "2026-08-10T15:03:41.124521",
+        "id": 340,
+        "timestamp": "2026-08-16T18:04:30.234487",
         "platform": "youtube",
-        "post_id": "6a7977ca249ab9327d96cc11",
+        "post_id": "wbQTtKMo93Q",
+        "post_type": "reel",
+        "category": "meme",
+        "stories": "[]",
+        "status": "success",
+        "error": null
+      },
+      {
+        "id": 339,
+        "timestamp": "2026-08-16T18:04:30.231244",
+        "platform": "tiktok",
+        "post_id": "6a818b20a85e8b5aac3c8736",
+        "post_type": "reel",
+        "category": "meme",
+        "stories": "[]",
+        "status": "success",
+        "error": null
+      },
+      {
+        "id": 338,
+        "timestamp": "2026-08-16T18:04:30.228176",
+        "platform": "facebook",
+        "post_id": "6a818b13939ce3ef8f2b52f0",
+        "post_type": "reel",
+        "category": "meme",
+        "stories": "[]",
+        "status": "success",
+        "error": null
+      },
+      {
+        "id": 337,
+        "timestamp": "2026-08-16T18:04:30.224049",
+        "platform": "instagram",
+        "post_id": "6a818b06939ce3ef8f2b51f2",
+        "post_type": "reel",
+        "category": "meme",
+        "stories": "[]",
+        "status": "success",
+        "error": null
+      },
+      {
+        "id": 336,
+        "timestamp": "2026-08-16T15:03:49.400664",
+        "platform": "youtube",
+        "post_id": "ucAqamYyFgs",
+        "post_type": "reel",
+        "category": "crossover",
+        "stories": "[]",
+        "status": "success",
+        "error": null
+      },
+      {
+        "id": 335,
+        "timestamp": "2026-08-16T15:03:49.397077",
+        "platform": "tiktok",
+        "post_id": "6a8160c77a8d0e804d605862",
+        "post_type": "reel",
+        "category": "crossover",
+        "stories": "[]",
+        "status": "success",
+        "error": null
+      },
+      {
+        "id": 334,
+        "timestamp": "2026-08-16T15:03:49.392848",
+        "platform": "facebook",
+        "post_id": "6a8160bdaf8e8bd46a3a7641",
+        "post_type": "reel",
+        "category": "crossover",
+        "stories": "[]",
+        "status": "success",
+        "error": null
+      },
+      {
+        "id": 333,
+        "timestamp": "2026-08-16T15:03:49.388183",
+        "platform": "instagram",
+        "post_id": "6a8160b07a8d0e804d60572c",
+        "post_type": "reel",
+        "category": "crossover",
+        "stories": "[]",
+        "status": "success",
+        "error": null
+      },
+      {
+        "id": 332,
+        "timestamp": "2026-08-16T10:04:14.079715",
+        "platform": "youtube",
+        "post_id": "KC9hbIxaEdM",
         "post_type": "reel",
         "category": "tech",
         "stories": "[]",
@@ -116,10 +212,10 @@
         "error": null
       },
       {
-        "id": 245,
-        "timestamp": "2026-08-10T15:03:41.122058",
-        "platform": "facebook",
-        "post_id": "6a7977c0249ab9327d96cb7a",
+        "id": 331,
+        "timestamp": "2026-08-16T10:04:14.076338",
+        "platform": "tiktok",
+        "post_id": "6a811a90ced1ab157dc5d042",
         "post_type": "reel",
         "category": "tech",
         "stories": "[]",
@@ -127,10 +223,10 @@
         "error": null
       },
       {
-        "id": 244,
-        "timestamp": "2026-08-10T15:03:41.119129",
-        "platform": "instagram",
-        "post_id": "6a7977b4472e1a5200f0adeb",
+        "id": 330,
+        "timestamp": "2026-08-16T10:04:14.072481",
+        "platform": "facebook",
+        "post_id": "6a811a8689eb644aed906488",
         "post_type": "reel",
         "category": "tech",
         "stories": "[]",
@@ -138,76 +234,65 @@
         "error": null
       },
       {
-        "id": 243,
-        "timestamp": "2026-08-10T10:03:55.251458",
-        "platform": "youtube",
-        "post_id": "6a793187e6cde72bc904ca69",
-        "post_type": "reel",
-        "category": "combined",
-        "stories": "[]",
-        "status": "success",
-        "error": null
-      },
-      {
-        "id": 242,
-        "timestamp": "2026-08-10T10:03:55.249088",
-        "platform": "facebook",
-        "post_id": "6a79317ee99da63ec8a31814",
-        "post_type": "reel",
-        "category": "combined",
-        "stories": "[]",
-        "status": "success",
-        "error": null
-      },
-      {
-        "id": 241,
-        "timestamp": "2026-08-10T10:03:55.246400",
+        "id": 329,
+        "timestamp": "2026-08-16T10:04:14.067378",
         "platform": "instagram",
-        "post_id": "6a793172e6cde72bc904c99d",
+        "post_id": "6a811a7a211938b6e646afe1",
         "post_type": "reel",
-        "category": "combined",
+        "category": "tech",
         "stories": "[]",
         "status": "success",
         "error": null
       },
       {
-        "id": 240,
-        "timestamp": "2026-08-10T03:03:27.186977",
+        "id": 328,
+        "timestamp": "2026-08-16T03:03:35.846045",
         "platform": "youtube",
-        "post_id": "6a78cef41757b5cd4350ea3e",
+        "post_id": "RKgG89KLHzI",
         "post_type": "reel",
-        "category": "bitcoin",
+        "category": "crossover",
         "stories": "[]",
         "status": "success",
         "error": null
       },
       {
-        "id": 239,
-        "timestamp": "2026-08-10T03:03:27.184855",
+        "id": 327,
+        "timestamp": "2026-08-16T03:03:35.842590",
+        "platform": "tiktok",
+        "post_id": "6a80b7fad809833434b48cf8",
+        "post_type": "reel",
+        "category": "crossover",
+        "stories": "[]",
+        "status": "success",
+        "error": null
+      },
+      {
+        "id": 326,
+        "timestamp": "2026-08-16T03:03:35.839181",
         "platform": "facebook",
-        "post_id": "6a78ceeb634795f2baff55b7",
+        "post_id": "6a80b7f07e17c9c408874588",
         "post_type": "reel",
-        "category": "bitcoin",
+        "category": "crossover",
         "stories": "[]",
         "status": "success",
         "error": null
       },
       {
-        "id": 238,
-        "timestamp": "2026-08-10T03:03:27.180628",
+        "id": 325,
+        "timestamp": "2026-08-16T03:03:35.834929",
         "platform": "instagram",
-        "post_id": "6a78ced91757b5cd4350e990",
+        "post_id": "6a80b7e35aae4fa47318f437",
         "post_type": "reel",
-        "category": "bitcoin",
+        "category": "crossover",
         "stories": "[]",
         "status": "success",
         "error": null
       },
       {
-        "id": 237,
-        "timestamp": "2026-08-09T21:02:39.718124",
+        "id": 320,
+        "timestamp": "2026-08-15T21:35:53.421544",
         "platform": "youtube",
-        "post_id": "6a787a65523554e5ff61d1e6",
+        "post_id": "PFdW7Mf-DNI",
         "post_type": "reel",
         "category": "random",
         "stories": "[]",
@@ -215,10 +300,10 @@
         "error": null
       },
       {
-        "id": 236,
-        "timestamp": "2026-08-09T21:02:39.715514",
-        "platform": "facebook",
-        "post_id": "6a787a58d192ae76f3ce3ad6",
+        "id": 319,
+        "timestamp": "2026-08-15T21:35:53.418479",
+        "platform": "tiktok",
+        "post_id": "6a806b2bd809833434af91f8",
         "post_type": "reel",
         "category": "random",
         "stories": "[]",
@@ -226,10 +311,10 @@
         "error": null
       },
       {
-        "id": 235,
-        "timestamp": "2026-08-09T21:02:39.712643",
-        "platform": "instagram",
-        "post_id": "6a787a4cd192ae76f3ce39cc",
+        "id": 318,
+        "timestamp": "2026-08-15T21:35:53.414918",
+        "platform": "facebook",
+        "post_id": "6a806b217e17c9c4088246be",
         "post_type": "reel",
         "category": "random",
         "stories": "[]",
@@ -237,87 +322,10 @@
         "error": null
       },
       {
-        "id": 234,
-        "timestamp": "2026-08-09T15:03:22.080537",
-        "platform": "youtube",
-        "post_id": "6a7826349517ea3cc68fffb6",
-        "post_type": "reel",
-        "category": "tech",
-        "stories": "[]",
-        "status": "success",
-        "error": null
-      },
-      {
-        "id": 233,
-        "timestamp": "2026-08-09T15:03:22.077949",
-        "platform": "facebook",
-        "post_id": "6a78262b9517ea3cc68ffef8",
-        "post_type": "reel",
-        "category": "tech",
-        "stories": "[]",
-        "status": "success",
-        "error": null
-      },
-      {
-        "id": 232,
-        "timestamp": "2026-08-09T15:03:22.075074",
+        "id": 317,
+        "timestamp": "2026-08-15T21:35:53.409033",
         "platform": "instagram",
-        "post_id": "6a78261ed86dda1f366ecf61",
-        "post_type": "reel",
-        "category": "tech",
-        "stories": "[]",
-        "status": "success",
-        "error": null
-      },
-      {
-        "id": 231,
-        "timestamp": "2026-08-09T10:03:42.284048",
-        "platform": "facebook",
-        "post_id": "6a77dfeb529955fa9031a2fa",
-        "post_type": "reel",
-        "category": "combined",
-        "stories": "[]",
-        "status": "success",
-        "error": null
-      },
-      {
-        "id": 230,
-        "timestamp": "2026-08-09T03:03:18.802715",
-        "platform": "youtube",
-        "post_id": "6a777d749517ea3cc687ffc6",
-        "post_type": "reel",
-        "category": "bitcoin",
-        "stories": "[]",
-        "status": "success",
-        "error": null
-      },
-      {
-        "id": 229,
-        "timestamp": "2026-08-09T03:03:18.800746",
-        "platform": "facebook",
-        "post_id": "6a777d6ad86dda1f36695407",
-        "post_type": "reel",
-        "category": "bitcoin",
-        "stories": "[]",
-        "status": "success",
-        "error": null
-      },
-      {
-        "id": 228,
-        "timestamp": "2026-08-09T03:03:18.797702",
-        "platform": "instagram",
-        "post_id": "6a777d5ca69527d8fa5f0bad",
-        "post_type": "reel",
-        "category": "bitcoin",
-        "stories": "[]",
-        "status": "success",
-        "error": null
-      },
-      {
-        "id": 227,
-        "timestamp": "2026-08-08T21:02:42.595540",
-        "platform": "youtube",
-        "post_id": "6a7728ee9c08137afa1a1e2f",
+        "post_id": "6a806b158c12775f11463465",
         "post_type": "reel",
         "category": "random",
         "stories": "[]",
@@ -332,24 +340,24 @@
       "filename": "affiliate_post.py",
       "description": "Weekly Luno/HATA dedicated affiliate post \u2014 runs every Saturday.",
       "category": "posting",
-      "size_kb": 7.3,
-      "modified": "2026-08-10T13:57:47.711689"
+      "size_kb": 7.2,
+      "modified": "2026-08-13T18:30:11.585241"
     },
     {
       "name": "ai_polish",
       "filename": "ai_polish.py",
       "description": "AI polish module \u2014 uses deepseek-v4-pro via OpenCode Go to transform raw RSS items",
       "category": "utility",
-      "size_kb": 33.8,
-      "modified": "2026-08-10T16:13:39.901379"
+      "size_kb": 67.8,
+      "modified": "2026-08-15T15:41:00.872792"
     },
     {
       "name": "anime_maker",
       "filename": "anime_maker.py",
       "description": "NEON INHERITANCE \u2014 ANIMATED puppet engine v2.",
       "category": "utility",
-      "size_kb": 26.4,
-      "modified": "2026-08-02T16:56:01.114561"
+      "size_kb": 26.5,
+      "modified": "2026-08-16T08:11:28.089717"
     },
     {
       "name": "anime_rig",
@@ -368,12 +376,92 @@
       "modified": "2026-08-02T16:37:56.427693"
     },
     {
+      "name": "bedtime_story",
+      "filename": "bedtime_story.py",
+      "description": "Bedtime story generator for SJKC PIN MIN Telegram group.",
+      "category": "utility",
+      "size_kb": 20.8,
+      "modified": "2026-08-14T16:42:24.890085"
+    },
+    {
+      "name": "check_daily_content",
+      "filename": "check_daily_content.py",
+      "description": "Daily content checker for SJKC PIN MIN (homework + reading quiz + bedtime).",
+      "category": "posting",
+      "size_kb": 8.4,
+      "modified": "2026-08-15T01:03:20.348009"
+    },
+    {
+      "name": "collect_bedtime",
+      "filename": "collect_bedtime.py",
+      "description": "Collect bedtime story quiz results and report them.",
+      "category": "utility",
+      "size_kb": 5.2,
+      "modified": "2026-08-13T10:26:19.469728"
+    },
+    {
+      "name": "collect_reading_stats",
+      "filename": "collect_reading_stats.py",
+      "description": "Collect reading quiz results and report them (self-learning model: NO",
+      "category": "analytics",
+      "size_kb": 6.3,
+      "modified": "2026-08-13T07:58:48.034961"
+    },
+    {
+      "name": "crypto_history",
+      "filename": "crypto_history.py",
+      "description": "Curated Bitcoin/crypto history + crypto-meme stories \u2014 the CROSSOVER pool.",
+      "category": "utility",
+      "size_kb": 22.4,
+      "modified": "2026-08-15T10:07:14.711944"
+    },
+    {
       "name": "daily_meme_post",
       "filename": "daily_meme_post.py",
       "description": "Daily Meme History post \u2014 uses MEME_STORIES with real meme images as backgrounds",
       "category": "posting",
-      "size_kb": 17.5,
-      "modified": "2026-08-10T15:48:35.256735"
+      "size_kb": 21.5,
+      "modified": "2026-08-15T21:37:58.617631"
+    },
+    {
+      "name": "dash_snapshot_run",
+      "filename": "dash_snapshot_run.py",
+      "description": "Cron wrapper: regenerate dashboard snapshot, commit, push (Pages auto-deploys).",
+      "category": "utility",
+      "size_kb": 1.1,
+      "modified": "2026-08-15T10:58:41.638310"
+    },
+    {
+      "name": "direct_post",
+      "filename": "direct_post.py",
+      "description": "direct_post.py \u2014 Buffer-free multi-platform posting.",
+      "category": "posting",
+      "size_kb": 13.8,
+      "modified": "2026-08-11T12:53:17.185296"
+    },
+    {
+      "name": "fetch_my",
+      "filename": "fetch_my.py",
+      "description": "Fetch Malaysia-focused feeds with more items.",
+      "category": "utility",
+      "size_kb": 2.0,
+      "modified": "2026-08-15T09:22:29.923634"
+    },
+    {
+      "name": "fetch_poly_config",
+      "filename": "fetch_poly_config.py",
+      "description": "Sync bot config files from GitHub (written by the dashboard buttons).",
+      "category": "utility",
+      "size_kb": 2.6,
+      "modified": "2026-08-15T22:20:55.413162"
+    },
+    {
+      "name": "fetch_rss",
+      "filename": "fetch_rss.py",
+      "description": "Fetch and parse RSS feeds for the daily briefing.",
+      "category": "utility",
+      "size_kb": 3.0,
+      "modified": "2026-08-15T09:18:57.446526"
     },
     {
       "name": "file_host",
@@ -382,6 +470,54 @@
       "category": "utility",
       "size_kb": 1.2,
       "modified": "2026-07-28T06:33:36.310100"
+    },
+    {
+      "name": "fresh_content",
+      "filename": "fresh_content.py",
+      "description": "Fresh-content engine (user directive Aug 14 2026).",
+      "category": "utility",
+      "size_kb": 22.5,
+      "modified": "2026-08-15T01:03:07.311795"
+    },
+    {
+      "name": "gen_examples",
+      "filename": "gen_examples.py",
+      "description": "Generate the full curated _EXAMPLES dictionary for every vocab word.",
+      "category": "utility",
+      "size_kb": 14.6,
+      "modified": "2026-08-12T21:36:16.689847"
+    },
+    {
+      "name": "generate_homework",
+      "filename": "generate_homework.py",
+      "description": "Weekly English vocabulary homework generator for SJK Years 1-6.",
+      "category": "content",
+      "size_kb": 31.8,
+      "modified": "2026-08-14T16:33:39.348282"
+    },
+    {
+      "name": "heal_daily_content",
+      "filename": "heal_daily_content.py",
+      "description": "Heal path for daily SJKC content checks (user directive Aug 15 2026).",
+      "category": "posting",
+      "size_kb": 5.3,
+      "modified": "2026-08-15T07:10:12.503827"
+    },
+    {
+      "name": "hw_content",
+      "filename": "hw_content.py",
+      "description": "Additional curated homework content.",
+      "category": "utility",
+      "size_kb": 49.8,
+      "modified": "2026-08-12T21:47:30.033228"
+    },
+    {
+      "name": "kira_demo",
+      "filename": "kira_demo.py",
+      "description": "KIRA \u2014 virtual influencer demo reel (standalone, reuses the anime engine).",
+      "category": "utility",
+      "size_kb": 9.6,
+      "modified": "2026-08-16T08:11:11.606363"
     },
     {
       "name": "make_reel",
@@ -420,24 +556,40 @@
       "filename": "meme_history.py",
       "description": "Curated meme history stories \u2014 origin, context, and backstory of famous internet memes.",
       "category": "utility",
-      "size_kb": 15.8,
-      "modified": "2026-07-29T18:33:20.332884"
+      "size_kb": 24.3,
+      "modified": "2026-08-15T10:10:54.889177"
     },
     {
       "name": "narrated_reel",
       "filename": "narrated_reel.py",
       "description": "Build a narrated reel with edge-tts voiceover + word-accurate subtitles.",
       "category": "posting",
-      "size_kb": 25.5,
-      "modified": "2026-08-10T15:29:41.750884"
+      "size_kb": 25.0,
+      "modified": "2026-08-13T10:32:08.636375"
     },
     {
       "name": "news_poster",
       "filename": "news_poster.py",
       "description": "Unified daily news poster.",
       "category": "posting",
-      "size_kb": 46.7,
-      "modified": "2026-08-10T15:44:22.578738"
+      "size_kb": 54.4,
+      "modified": "2026-08-15T10:17:28.739972"
+    },
+    {
+      "name": "paper_bot_run",
+      "filename": "paper_bot_run.py",
+      "description": "Cron wrapper: run the Minervini paper trading bot.",
+      "category": "utility",
+      "size_kb": 0.4,
+      "modified": "2026-08-15T10:47:40.821153"
+    },
+    {
+      "name": "post_briefing_social",
+      "filename": "post_briefing_social.py",
+      "description": "Post the daily news briefing digest to Instagram + Facebook with ONE topical photo.",
+      "category": "posting",
+      "size_kb": 7.3,
+      "modified": "2026-08-12T20:20:30.252599"
     },
     {
       "name": "post_logger",
@@ -456,20 +608,124 @@
       "modified": "2026-08-04T09:05:05.063077"
     },
     {
+      "name": "reading_quiz",
+      "filename": "reading_quiz.py",
+      "description": "Interactive reading quiz generator for SJKC PIN MIN Telegram group.",
+      "category": "utility",
+      "size_kb": 21.5,
+      "modified": "2026-08-14T17:06:37.103337"
+    },
+    {
       "name": "reel_helper",
       "filename": "reel_helper.py",
       "description": "Shared reel posting helper \u2014 imported by daily post scripts to add a reel after static images.",
       "category": "posting",
-      "size_kb": 36.6,
-      "modified": "2026-08-10T16:16:07.082428"
+      "size_kb": 52.6,
+      "modified": "2026-08-15T18:33:23.256272"
+    },
+    {
+      "name": "reel_rotation",
+      "filename": "reel_rotation.py",
+      "description": "Weekly reel category rotation \u2014 50/30/20 mix (user directive Aug 15 2026).",
+      "category": "posting",
+      "size_kb": 1.8,
+      "modified": "2026-08-15T09:31:39.329219"
+    },
+    {
+      "name": "reference_fetch",
+      "filename": "reference_fetch.py",
+      "description": "Curriculum reference fetcher (user directive Aug 14 2026).",
+      "category": "utility",
+      "size_kb": 5.5,
+      "modified": "2026-08-14T17:18:16.130868"
+    },
+    {
+      "name": "render_bedtime",
+      "filename": "render_bedtime.py",
+      "description": "Pre-render bedtime story videos (run ~18:30, posting is at 20:00).",
+      "category": "utility",
+      "size_kb": 1.8,
+      "modified": "2026-08-13T10:49:16.350938"
+    },
+    {
+      "name": "rpt_units",
+      "filename": "rpt_units.py",
+      "description": "RPT-driven current-unit resolution for homework generation.",
+      "category": "utility",
+      "size_kb": 6.5,
+      "modified": "2026-08-14T17:38:12.198365"
+    },
+    {
+      "name": "screener_run",
+      "filename": "screener_run.py",
+      "description": "Cron wrapper: daily tradebot universe screener + strategy-lab backtests.",
+      "category": "utility",
+      "size_kb": 0.9,
+      "modified": "2026-08-15T13:34:48.472648"
     },
     {
       "name": "script_evaluator",
       "filename": "script_evaluator.py",
       "description": "Evaluate generated narration scripts against their webfetched source items.",
       "category": "utility",
-      "size_kb": 8.0,
-      "modified": "2026-08-10T13:18:31.612984"
+      "size_kb": 8.1,
+      "modified": "2026-08-12T20:20:30.737608"
+    },
+    {
+      "name": "send_bedtime",
+      "filename": "send_bedtime.py",
+      "description": "Post tonight's bedtime story set to the SJKC PIN MIN Telegram group.",
+      "category": "utility",
+      "size_kb": 14.4,
+      "modified": "2026-08-13T10:36:10.202682"
+    },
+    {
+      "name": "send_homework",
+      "filename": "send_homework.py",
+      "description": "Weekly homework delivery to SJKC PIN MIN Telegram group.",
+      "category": "utility",
+      "size_kb": 7.7,
+      "modified": "2026-08-15T07:10:12.484826"
+    },
+    {
+      "name": "send_reading_quiz",
+      "filename": "send_reading_quiz.py",
+      "description": "Post today's reading quiz set to the SJKC PIN MIN Telegram group.",
+      "category": "utility",
+      "size_kb": 8.5,
+      "modified": "2026-08-13T07:58:26.462564"
+    },
+    {
+      "name": "story_pool",
+      "filename": "story_pool.py",
+      "description": "Story-pool usage ledger \u2014 no-repeat guarantee for curated reel pools.",
+      "category": "utility",
+      "size_kb": 3.9,
+      "modified": "2026-08-15T09:40:59.385291"
+    },
+    {
+      "name": "textbook",
+      "filename": "textbook.py",
+      "description": "KSSR English textbook OCR reference source (user-provided AnyFlip links,",
+      "category": "utility",
+      "size_kb": 9.2,
+      "modified": "2026-08-14T18:19:36.246036"
+    },
+    {
+      "name": "tts_engine",
+      "filename": "tts_engine.py",
+      "description": "Unified TTS engine for the reel pipeline.",
+      "category": "utility",
+      "size_kb": 12.2,
+      "modified": "2026-08-13T10:19:59.105565"
+    },
+    {
+      "name": "verify_reel",
+      "filename": "verify_reel.py",
+      "description": "VERIFY-BEFORE-POST gate for narrated reels (user mandate Aug 15 2026).",
+      "category": "posting",
+      "size_kb": 7.9,
+      "modified": "2026-08-15T15:31:28.679369"
     },
     {
       "name": "views_auto_youtube",
@@ -492,8 +748,8 @@
       "filename": "weekly_compilation.py",
       "description": "Weekly YouTube compilation \u2014 stitches the week's archived narrated reels",
       "category": "utility",
-      "size_kb": 6.4,
-      "modified": "2026-08-10T09:00:45.360403"
+      "size_kb": 5.9,
+      "modified": "2026-08-13T18:30:16.798347"
     },
     {
       "name": "weekly_limit_watchdog",
@@ -502,6 +758,14 @@
       "category": "utility",
       "size_kb": 7.2,
       "modified": "2026-08-10T08:16:07.122874"
+    },
+    {
+      "name": "yt_oauth_setup",
+      "filename": "yt_oauth_setup.py",
+      "description": "YouTube OAuth setup helper (one-time).",
+      "category": "utility",
+      "size_kb": 2.9,
+      "modified": "2026-08-13T11:00:02.147507"
     }
   ],
   "cron": [
@@ -509,11 +773,11 @@
       "job_id": "176823e36a57",
       "state": "active",
       "name": "Daily Morning News Briefing",
-      "schedule": "15 8 * * *",
+      "schedule": "0 9 * * *",
       "repeat": "\u221e",
-      "next_run": "2026-08-11T08:15:00+08:00",
+      "next_run": "2026-08-17T09:00:00+08:00",
       "deliver": "origin",
-      "last_run": "2026-08-10T08:40:30.336840+08:00",
+      "last_run": "2026-08-16T09:20:15.660267+08:00",
       "last_status": "ok"
     },
     {
@@ -522,76 +786,76 @@
       "name": "Weekly Affiliate Post (Saturday)",
       "schedule": "0 11 * * 6",
       "repeat": "\u221e",
-      "next_run": "2026-08-15T11:00:00+08:00",
+      "next_run": "2026-08-22T11:00:00+08:00",
       "deliver": "origin",
       "script": "post_affiliate.sh",
       "mode": "no-agent (script stdout delivered directly)",
-      "last_run": "2026-08-08T11:00:42.490072+08:00",
+      "last_run": "2026-08-15T11:01:09.396518+08:00",
       "last_status": "ok"
     },
     {
       "job_id": "7ffe4af0b734",
       "state": "active",
-      "name": "Bitcoin Bulletin 3AM",
+      "name": "Reel Slot 3AM (rotating: Bitcoin/Crossover)",
       "schedule": "0 3 * * *",
       "repeat": "\u221e",
-      "next_run": "2026-08-11T03:00:00+08:00",
+      "next_run": "2026-08-17T03:00:00+08:00",
       "deliver": "origin",
-      "script": "post_bitcoin.sh",
+      "script": "post_slot_3am.sh",
       "mode": "no-agent (script stdout delivered directly)",
-      "last_run": "2026-08-10T03:03:29.616294+08:00",
+      "last_run": "2026-08-16T03:03:47.027852+08:00",
       "last_status": "ok"
     },
     {
       "job_id": "ac9cfc8f206e",
       "state": "active",
-      "name": "Tech & AI Digest 3PM",
+      "name": "Reel Slot 3PM (rotating: Tech/Meme/Bitcoin/Crossover)",
       "schedule": "0 15 * * *",
       "repeat": "\u221e",
-      "next_run": "2026-08-11T15:00:00+08:00",
+      "next_run": "2026-08-17T15:00:00+08:00",
       "deliver": "origin",
-      "script": "post_tech.sh",
+      "script": "post_slot_3pm.sh",
       "mode": "no-agent (script stdout delivered directly)",
-      "last_run": "2026-08-10T15:03:43.280856+08:00",
+      "last_run": "2026-08-16T15:04:01.024281+08:00",
       "last_status": "ok"
     },
     {
       "job_id": "a17f3a1e4151",
       "state": "active",
-      "name": "This Week in Weird 9PM",
+      "name": "Reel Slot 9PM (This Week in Weird daily)",
       "schedule": "0 21 * * *",
       "repeat": "\u221e",
-      "next_run": "2026-08-10T21:00:00+08:00",
+      "next_run": "2026-08-16T21:00:00+08:00",
       "deliver": "origin",
-      "script": "post_random.sh",
+      "script": "post_slot_9pm.sh",
       "mode": "no-agent (script stdout delivered directly)",
-      "last_run": "2026-08-09T21:02:42.412777+08:00",
+      "last_run": "2026-08-15T21:05:46.163779+08:00",
       "last_status": "ok"
     },
     {
       "job_id": "f6fb02536f18",
       "state": "active",
-      "name": "Meme History 6PM",
+      "name": "Reel Slot 6PM (Meme History daily)",
       "schedule": "0 18 * * *",
       "repeat": "\u221e",
-      "next_run": "2026-08-10T18:00:00+08:00",
+      "next_run": "2026-08-17T18:00:00+08:00",
       "deliver": "origin",
-      "script": "post_meme.sh",
+      "script": "post_slot_6pm.sh",
       "mode": "no-agent (script stdout delivered directly)",
-      "last_run": "2026-08-09T18:03:09.963414+08:00",
+      "last_run": "2026-08-16T18:04:42.209617+08:00",
       "last_status": "ok"
     },
     {
       "job_id": "aa85c6e0779a",
       "state": "active",
-      "name": "Global & Malaysia Brief 10AM",
+      "name": "Reel Slot 10AM (rotating: Random/Crossover/Tech)",
       "schedule": "0 10 * * *",
       "repeat": "\u221e",
-      "next_run": "2026-08-11T10:00:00+08:00",
+      "next_run": "2026-08-17T10:00:00+08:00",
       "deliver": "origin",
-      "script": "post_combined.sh",
+      "script": "post_slot_10am.sh",
       "mode": "no-agent (script stdout delivered directly)",
-      "last_run": "2026-08-10T10:03:57.735958+08:00",
+      "last_run": "2026-08-16T10:04:21.597007+08:00",
       "last_status": "ok"
     },
     {
@@ -600,11 +864,11 @@
       "name": "OpenCode Go Quota Watcher",
       "schedule": "*/15 * * * *",
       "repeat": "\u221e",
-      "next_run": "2026-08-10T18:00:00+08:00",
+      "next_run": "2026-08-16T20:45:00+08:00",
       "deliver": "origin",
       "script": "quota_watcher.py",
       "mode": "no-agent (script stdout delivered directly)",
-      "last_run": "2026-08-10T17:45:50.957384+08:00",
+      "last_run": "2026-08-16T20:30:51.274626+08:00",
       "last_status": "ok"
     },
     {
@@ -613,21 +877,23 @@
       "name": "Weekly Limit Watchdog",
       "schedule": "*/10 * * * *",
       "repeat": "\u221e",
-      "next_run": "2026-08-10T18:00:00+08:00",
+      "next_run": "2026-08-16T20:40:00+08:00",
       "deliver": "origin",
       "script": "weekly_limit_watchdog.py",
       "mode": "no-agent (script stdout delivered directly)",
-      "last_run": "2026-08-10T17:50:51.388227+08:00",
+      "last_run": "2026-08-16T20:30:51.566804+08:00",
       "last_status": "ok"
     },
     {
       "job_id": "714dc68dd0dd",
       "state": "active",
       "name": "Weekly Content Review",
-      "schedule": "0 10 * * 0",
+      "schedule": "30 10 * * 0",
       "repeat": "\u221e",
-      "next_run": "2026-08-16T10:00:00+08:00",
-      "deliver": "origin"
+      "next_run": "2026-08-23T10:30:00+08:00",
+      "deliver": "origin",
+      "last_run": "2026-08-16T10:34:21.302498+08:00",
+      "last_status": "ok"
     },
     {
       "job_id": "ee139f49d113",
@@ -635,23 +901,167 @@
       "name": "Weekly YouTube Compilation",
       "schedule": "0 7 * * 0",
       "repeat": "\u221e",
-      "next_run": "2026-08-16T07:00:00+08:00",
+      "next_run": "2026-08-23T07:00:00+08:00",
       "deliver": "origin",
       "script": "post_weekly_compilation.sh",
-      "mode": "no-agent (script stdout delivered directly)"
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run": "2026-08-16T07:03:14.541453+08:00",
+      "last_status": "ok"
     },
     {
       "job_id": "2f9ac70b4d72",
       "state": "active",
       "name": "Weekly Views Snapshot Reminder",
-      "schedule": "0 20 * * 0",
+      "schedule": "30 20 * * 0",
       "repeat": "\u221e",
-      "next_run": "2026-08-16T20:00:00+08:00",
+      "next_run": "2026-08-23T20:30:00+08:00",
       "deliver": "origin"
+    },
+    {
+      "job_id": "746e44c206b7",
+      "state": "active",
+      "name": "English Vocabulary Homework (Tue/Thu/Sat)",
+      "schedule": "0 16 * * 2,4,6",
+      "repeat": "\u221e",
+      "next_run": "2026-08-18T16:00:00+08:00",
+      "deliver": "origin",
+      "script": "post_homework.sh",
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run": "2026-08-15T16:00:33.716815+08:00",
+      "last_status": "ok"
+    },
+    {
+      "job_id": "1c9b57f2ce95",
+      "state": "active",
+      "name": "Reading quiz posting (Mon/Wed/Fri/Sun 16:00)",
+      "schedule": "0 16 * * 1,3,5,0",
+      "repeat": "\u221e",
+      "next_run": "2026-08-17T16:00:00+08:00",
+      "deliver": "origin",
+      "script": "post_reading.sh",
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run": "2026-08-16T16:02:23.536728+08:00",
+      "last_status": "ok"
+    },
+    {
+      "job_id": "62a32c9d2085",
+      "state": "active",
+      "name": "Bedtime story posting (daily 20:00)",
+      "schedule": "0 20 * * *",
+      "repeat": "\u221e",
+      "next_run": "2026-08-17T20:00:00+08:00",
+      "deliver": "origin",
+      "script": "post_bedtime.sh",
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run": "2026-08-16T20:01:45.885494+08:00",
+      "last_status": "ok"
+    },
+    {
+      "job_id": "457139b5b669",
+      "state": "active",
+      "name": "Bedtime video pre-render (18:30)",
+      "schedule": "30 18 * * *",
+      "repeat": "\u221e",
+      "next_run": "2026-08-17T18:30:00+08:00",
+      "deliver": "origin",
+      "script": "render_bedtime.sh",
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run": "2026-08-16T18:39:53.719623+08:00",
+      "last_status": "ok"
+    },
+    {
+      "job_id": "fb42f10758ff",
+      "state": "active",
+      "name": "Paper bots hourly scan (crypto + stocks + world)",
+      "schedule": "0 * * * *",
+      "repeat": "\u221e",
+      "next_run": "2026-08-16T21:00:00+08:00",
+      "deliver": "origin",
+      "script": "paper_bot_run.py",
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run": "2026-08-16T20:01:24.453428+08:00",
+      "last_status": "ok"
+    },
+    {
+      "job_id": "f82f180a797c",
+      "state": "active",
+      "name": "Dashboard snapshot refresh",
+      "schedule": "30 9 * * *",
+      "repeat": "\u221e",
+      "next_run": "2026-08-17T09:30:00+08:00",
+      "deliver": "origin",
+      "script": "dash_snapshot_run.py",
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run": "2026-08-16T09:30:27.499856+08:00",
+      "last_status": "ok"
+    },
+    {
+      "job_id": "584622cd77e5",
+      "state": "active",
+      "name": "Crypto hype scan (X + Reddit) for tradebot",
+      "schedule": "5 0 * * *",
+      "repeat": "\u221e",
+      "next_run": "2026-08-17T00:05:00+08:00",
+      "deliver": "local",
+      "last_run": "2026-08-16T00:19:29.107786+08:00",
+      "last_status": "ok"
+    },
+    {
+      "job_id": "c9dc95b3912f",
+      "state": "active",
+      "name": "Tradebot daily universe screener",
+      "schedule": "20 0 * * *",
+      "repeat": "\u221e",
+      "next_run": "2026-08-17T00:20:00+08:00",
+      "deliver": "local",
+      "script": "screener_run.py",
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run": "2026-08-16T00:25:18.809683+08:00",
+      "last_status": "ok"
+    },
+    {
+      "job_id": "605206ede818",
+      "state": "active",
+      "name": "Polymarket news eval + paper bot (daily)",
+      "schedule": "25 0 * * *",
+      "repeat": "\u221e",
+      "next_run": "2026-08-17T00:25:00+08:00",
+      "deliver": "origin",
+      "last_run": "2026-08-16T00:34:32.060637+08:00",
+      "last_status": "ok"
+    },
+    {
+      "job_id": "d7cda69864a9",
+      "state": "active",
+      "name": "Bot config sync (dashboard \u2192 machine, 10-min)",
+      "schedule": "*/10 * * * *",
+      "repeat": "\u221e",
+      "next_run": "2026-08-16T20:40:00+08:00",
+      "deliver": "origin",
+      "script": "fetch_poly_config.py",
+      "mode": "no-agent (script stdout delivered directly)",
+      "last_run": "2026-08-16T20:30:52.889137+08:00",
+      "last_status": "ok"
     }
   ],
   "views": {
     "snapshots": [
+      {
+        "id": 7,
+        "timestamp": "2026-08-16T20:31:31.026507",
+        "platform": "youtube",
+        "views": 3930,
+        "followers": 1,
+        "note": "auto: 144 videos"
+      },
+      {
+        "id": 6,
+        "timestamp": "2026-08-10T17:56:22.164437",
+        "platform": "youtube",
+        "views": 3096,
+        "followers": 1,
+        "note": "auto: 113 videos"
+      },
       {
         "id": 5,
         "timestamp": "2026-08-10T17:53:12.816682",
@@ -703,6 +1113,12 @@
         "platform": "youtube",
         "views": 2700,
         "followers": 0
+      },
+      {
+        "date": "2026-08-16",
+        "platform": "youtube",
+        "views": 3930,
+        "followers": 1
       }
     ],
     "platforms": [
